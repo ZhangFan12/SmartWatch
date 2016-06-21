@@ -93,9 +93,146 @@ body {
     background-color: #2C81BA; }
 
 .content {
+  position: relative;
   width: 100%;
   height: 100%;
   border-radius: 5px 0 0 5px;
   background-color: #FFFFFF; }
+
+.time-alarm {
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
+  color: #24557b;
+  text-align: center; }
+  .time-alarm .real-time-display {
+    position: relative;
+    height: 255px; }
+    .time-alarm .real-time-display .bg {
+      width: 255px;
+      height: 255px;
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg); }
+    .time-alarm .real-time-display .time-text {
+      position: absolute;
+      top: calc(50% - 35px);
+      width: 100%; }
+      .time-alarm .real-time-display .time-text i {
+        font-size: 70px;
+        letter-spacing: 4px; }
+  .time-alarm .real-time-title {
+    padding: 10px; }
+  .time-alarm .real-time-hr {
+    border-bottom: 1px solid #2C81BA; }
+  .time-alarm .week-nav {
+    margin-top: 5px;
+    margin-bottom: 15px; }
+    .time-alarm .week-nav li {
+      float: left;
+      width: 14.2%;
+      height: 50px; }
+      .time-alarm .week-nav li a {
+        box-sizing: border-box;
+        display: inline-block;
+        padding-top: 14px;
+        width: 45px;
+        height: 45px; }
+    .time-alarm .week-nav .active a {
+      border: 1px solid #24557b;
+      border-radius: 45px; }
+
+.setup-time-window {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 38%;
+  height: 90%;
+  background-color: #2C81BA; }
+  .setup-time-window .setup-header {
+    padding: 15px;
+    color: #FFFFFF;
+    text-align: center; }
+    .setup-time-window .setup-header .title {
+      display: inline-block;
+      margin: 2px; }
+    .setup-time-window .setup-header .left-btn {
+      display: inline-block;
+      float: left; }
+    .setup-time-window .setup-header .right-btn {
+      display: inline-block;
+      float: right; }
+    .setup-time-window .setup-header i {
+      font-size: 18px; }
+  .setup-time-window .setup-body {
+    box-sizing: border-box;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    width: 100%;
+    height: calc(100% - 48px); }
+
+.control-setup-time {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center; }
+  .control-setup-time .hour,
+  .control-setup-time .minute {
+    display: inline-block;
+    position: absolute;
+    z-index: 2;
+    width: 30%;
+    height: 100%;
+    text-align: center; }
+    .control-setup-time .hour li,
+    .control-setup-time .minute li {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 20%;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 46px; }
+      .control-setup-time .hour li span,
+      .control-setup-time .minute li span {
+        position: absolute;
+        right: 10%;
+        bottom: 0;
+        display: none;
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 14px;
+        vertical-align: bottom; }
+    .control-setup-time .hour .active,
+    .control-setup-time .minute .active {
+      font-size: 22px;
+      color: #fff; }
+      .control-setup-time .hour .active span,
+      .control-setup-time .minute .active span {
+        display: inline-block; }
+  .control-setup-time .hour {
+    top: 0;
+    left: 20%; }
+  .control-setup-time .minute {
+    top: 0;
+    right: 20%; }
+  .control-setup-time .active-bg {
+    position: absolute;
+    top: 40%;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 20%;
+    background-color: rgba(255, 255, 255, 0.3); }
+
+.btn {
+  padding: 10px 3em;
+  color: #FFFFFF;
+  background-color: #2C81BA;
+  border: 0;
+  border-radius: 34px; }
 
 /*# sourceMappingURL=style.css.map */

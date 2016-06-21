@@ -1,11 +1,11 @@
 @import "reset.css";
 @import "iconfont.css";
 $color1: #FFFFFF;
-$color2-1: #3498DB;
-$color2-2: #2C81BA;
-$color2-3: #03A2DF;
-$color3-1: #EAEAEA;
-$color3-2: #E0E0E0;
+$color2-1: #3498DB;//蓝
+$color2-2: #2C81BA;//蓝active
+$color2-3: #03A2DF;//蓝logo
+$color2-4: #24557b;//蓝font
+$color3-1: #EAEAEA;//灰
 body {
 	position: absolute;
 	box-sizing: border-box;
@@ -111,8 +111,171 @@ body {
 	}
 }
 .content {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	border-radius: 5px 0 0 5px;
 	background-color: $color1;
+}
+
+//时间闹钟
+.time-alarm {
+	box-sizing: border-box;
+	padding: 15px;
+	width: 100%;
+	color: $color2-4;
+	text-align: center;
+	.real-time-display {
+		position: relative;
+		height: 255px;
+		.bg {
+			width: 255px;
+			height: 255px;
+			-webkit-transform: rotate(0deg);
+			-ms-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+		.time-text {
+			position: absolute;
+			top: calc(50% - 35px);
+			width: 100%;
+			i{
+				font-size: 70px;
+				letter-spacing: 4px;
+			}
+		}
+	}
+	.real-time-title {
+		padding: 10px;
+	}
+	.real-time-hr {
+		border-bottom: 1px solid $color2-2;
+	}
+	.week-nav {
+		margin-top: 5px;
+		margin-bottom: 15px;
+		li {
+			float: left;
+			width: 14.2%;
+			height: 50px;
+			a {
+				box-sizing: border-box;
+				display: inline-block;
+				padding-top: 14px;
+				width: 45px;
+				height: 45px;
+				//text-align: center;
+			}
+		}
+		.active {
+			a {
+				border: 1px solid $color2-4;
+				border-radius: 45px;
+			}
+		}
+	}
+}
+.setup-time-window {
+	display: none;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 38%;
+	height: 90%;
+	background-color: $color2-2;
+	.setup-header {
+		padding : 15px;
+		color: $color1;
+		text-align: center;
+		.title {
+			display: inline-block;
+			margin: 2px;
+		}
+		.left-btn {
+			display: inline-block;
+			float: left;
+		}
+		.right-btn {
+			display: inline-block;
+			float: right;
+		}
+		i {
+			font-size: 18px;
+		}
+	}
+	.setup-body {
+		box-sizing: border-box;
+		padding-top: 30px;
+		padding-bottom: 40px;
+		width: 100%;
+		height: calc(100% - 48px);
+	}
+}
+.control-setup-time {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	.hour,
+	.minute {
+		display: inline-block;
+		position: absolute;
+		z-index: 2;
+		width: 30%;
+		height: 100%;
+		text-align: center;
+		li {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 20%;
+			font-size: 18px;
+			color: rgba(255, 255, 255, 0.6);
+			line-height: 46px;
+			span {
+				position: absolute;
+				right: 10%;
+				bottom: 0;
+				display: none;
+				margin-left: 5px;
+				margin-right: 5px;
+				font-size: 14px;
+				vertical-align: bottom;
+			}
+		}
+		.active {
+			font-size: 22px;
+			color: #fff;
+			span {
+				display: inline-block;
+			}
+		}
+	}
+	.hour {
+		top: 0;
+		left: 20%;
+	}
+	.minute {
+		top: 0;
+		right: 20%;
+	}
+	.active-bg {
+		position: absolute;
+		top: 40%;
+		z-index: 1;
+		display: block;
+		width: 100%;
+		height: 20%;
+		background-color: rgba(255, 255, 255, 0.3);
+	}
+}
+//btn
+.btn {
+	padding: 10px 3em;
+	color: $color1;
+	background-color: $color2-2;
+	border: 0;
+	border-radius: 34px;
 }
