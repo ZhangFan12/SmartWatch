@@ -71,8 +71,7 @@ var setupTimeWindow = function(){
 		//滑动时
 		touch.on(id, 'swiping', function(ev){
 			var totalMoveValue = moveValue + ev.distanceY;
-			this.parentNode.style.top = totalMoveValue + 'px';
-			
+			id.css("top",totalMoveValue + 'px');
 			id.find("li").removeClass('active');
 		});
 		//滑动结束
