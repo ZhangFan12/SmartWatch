@@ -1,5 +1,6 @@
 //设置时间窗口
 var setupTimeWindow = function(){
+	var liHeight;
 	//打开窗口
 	this.openWindow = function(hoursNum,minutesNum,hourValue,minuteValue){
 		// $(".time-alarm").animate({width:'69%'});
@@ -11,7 +12,7 @@ var setupTimeWindow = function(){
 		};
 
 		var minutesHtml = "";
-		for (var i = 1; i <= minutesNum; i++) {
+		for (var i = 0; i <= minutesNum-1; i++) {
 			minutesHtml = minutesHtml + "<li>" + i + "<span>分</span></li>";
 		};
 
@@ -19,7 +20,7 @@ var setupTimeWindow = function(){
 			'<div class="setup-header">' +
 				'<div class="left-btn" onclick="setupTimeClose()"><i class="iconfont">&#xe610;</i></div>' +
 				'<div class="title">设置时间</div>' +
-				'<div class="right-btn"><i class="iconfont">&#xe60f;</i></div>' +
+				'<div class="right-btn" onclick="setupTimeSave()"><i class="iconfont">&#xe60f;</i></div>' +
 			'</div>' +
 			'<div class="setup-body">' +
 				'<div class="control-setup-time">' +
@@ -38,13 +39,14 @@ var setupTimeWindow = function(){
 		$(".content").append(windowHtml);
 		$("#setup-time-window").fadeIn();
 
+
 		//设置时间的li高度自适应
 		var a = $("#control-setup-time li").height();
 		$("#control-setup-time li").css("line-height", a + "px")
 
 		//加载初始时间
 		var hourMoveValue = this.iniTimeDisplay($("#hour_move"),hoursNum,hourValue);
-		var minuteMoveValue = this.iniTimeDisplay($("#minute_move"),minutesNum,minuteValue);
+		var minuteMoveValue = this.iniTimeDisplay($("#minute_move"),minutesNum,parseInt(minuteValue)+1);
 
 		//加载时间滑动效果
 		this.setupTime($("#hour_move"),hoursNum,hourMoveValue);
@@ -54,6 +56,21 @@ var setupTimeWindow = function(){
 	//关闭窗口
 	this.closeWindow = function() {
 		$("#setup-time-window").remove();
+	}
+
+	//修改后保存
+	this.save = function() {
+		var h = parseInt($("#hour_move").css("top"));
+		var m = parseInt($("#minute_move").css("top"));
+		var timeValue = function(x) {
+			var y = -x/50+3;
+			return y
+		}
+		var text = timeValue(h) + ':' + (timeValue(m)-1);
+
+		$("#setup-time-window").remove();
+		return text
+		// console.log(timeValue(h) + ":" + timeValue(m))
 	}
 
 	//弹窗初始时间显示
@@ -99,7 +116,7 @@ var setupTimeWindow = function(){
 					console.log("超出最大值");
 				}
 			});
-			console.log(moveValue)
+			// console.log(moveValue)
 		});
 	}
 
@@ -112,6 +129,7 @@ var setupTimeWindow = function(){
 			x = i - 2;
 			topArray[i]= -liHeight * x;
 		}
+		// console.log(topArray);
 		return topArray //返回top值数组
 	}
 };

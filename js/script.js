@@ -7,11 +7,14 @@ $(function (){
 
 //打开时间设置窗口
 function setupTimeOpen(object){
-	var hourValue = object.innerHTML.substring(0,2);
-	var minuteValue = object.innerHTML.substring(3,5);
+	var strArrays = object.innerHTML.split(":");
+	var hourValue = strArrays[0];
+	var minuteValue = strArrays[1];
 
 	var a = new setupTimeWindow();
 	a.openWindow(24,60,hourValue,minuteValue);
+
+	object.setAttribute("value","1");
 
 	$(".time-alarm").animate({width:'69%'});
 	$(".alarm-list").fadeOut();
@@ -20,6 +23,15 @@ function setupTimeOpen(object){
 function setupTimeClose(){
 	var a = new setupTimeWindow();
 	a.closeWindow();
+
+	$(".time-alarm").animate({width:'73%'});
+	$(".alarm-list").fadeIn();
+};
+//保存时间设置窗口
+function setupTimeSave(){
+	var a = new setupTimeWindow();
+
+	$('<span class="time-btn" onclick="setupTimeOpen(this)" value="0">' + a.save() +'</span>').replaceAll($(".alarm-list .time-btn:eq(0)"));
 
 	$(".time-alarm").animate({width:'73%'});
 	$(".alarm-list").fadeIn();
