@@ -1,11 +1,13 @@
 @import "reset.css";
 @import "iconfont.css";
-$color1: #FFFFFF;
-$color2-1: #3498DB;//蓝
-$color2-2: #2C81BA;//蓝active
-$color2-3: #03A2DF;//蓝logo
+@import "control.css";
+$color1: #fff;
+$color2-1: #3498dB;//蓝
+$color2-2: #2c81ba;//蓝active
+$color2-3: #03a2df;//蓝logo
 $color2-4: #24557b;//蓝font
-$color3-1: #EAEAEA;//灰
+$color3-1: #eaeaea;//灰
+$color3-2: #e0e0e0;//深灰
 body {
 	position: absolute;
 	box-sizing: border-box;
@@ -52,6 +54,7 @@ body {
 		}
 	}
 	.r-btn {
+		cursor: pointer;
 		position: absolute;
 		top: 18px;
 		right: 1em;
@@ -68,6 +71,7 @@ body {
 	text-align: center;
 	background-color: $color2-1;
 	li {
+		cursor: pointer;
 		display: inline-block;
 		float: left;
 		width: 200px;
@@ -89,6 +93,7 @@ body {
 	}
 }
 .aside-nav {
+	// overflow-y :auto;
 	position: absolute;
 	top: 75px;
 	left: 0;
@@ -97,6 +102,7 @@ body {
 	text-align: center;
 	background-color: $color1;
 	li {
+		cursor: pointer;
 		display: block;
 		box-sizing: border-box;
 		padding: 13px;
@@ -112,6 +118,8 @@ body {
 }
 .content {
 	position: relative;
+	box-sizing: border-box;
+	padding: 15px;
 	width: 100%;
 	height: 100%;
 	border-radius: 5px 0 0 5px;
@@ -120,17 +128,20 @@ body {
 
 //时间闹钟
 .time-alarm {
-	box-sizing: border-box;
-	padding: 15px;
-	width: 100%;
+	overflow-y :auto;
+	display: inline-block;
+	float: left;
+	width: 73%;
+	height: 100%;
 	color: $color2-4;
 	text-align: center;
 	.real-time-display {
 		position: relative;
-		height: 255px;
+		height: 65%;
+		min-height: 255px;
 		.bg {
-			width: 255px;
-			height: 255px;
+			// width: 255px;
+			height: 100%;
 			-webkit-transform: rotate(0deg);
 			-ms-transform: rotate(0deg);
 			-o-transform: rotate(0deg);
@@ -140,7 +151,8 @@ body {
 			position: absolute;
 			top: calc(50% - 35px);
 			width: 100%;
-			i{
+			.icon{
+				cursor: pointer;
 				font-size: 70px;
 				letter-spacing: 4px;
 			}
@@ -148,23 +160,26 @@ body {
 	}
 	.real-time-title {
 		padding: 10px;
+		font-size: 1em;
 	}
 	.real-time-hr {
 		border-bottom: 1px solid $color2-2;
 	}
 	.week-nav {
-		margin-top: 5px;
-		margin-bottom: 15px;
+		padding: 5px 0 15px 0;
+		height: 11.5%;
+		min-height: 45px;
 		li {
 			float: left;
 			width: 14.2%;
-			height: 50px;
 			a {
+				cursor: pointer;
 				box-sizing: border-box;
 				display: inline-block;
 				padding-top: 14px;
 				width: 45px;
 				height: 45px;
+				font-size: 1em;
 				//text-align: center;
 			}
 		}
@@ -176,103 +191,51 @@ body {
 		}
 	}
 }
-.setup-time-window {
-	display: none;
+.alarm-list {
+	overflow-y :auto;
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	width: 38%;
-	height: 90%;
-	background-color: $color2-2;
-	.setup-header {
-		padding : 15px;
-		color: $color1;
-		text-align: center;
-		.title {
-			display: inline-block;
-			margin: 2px;
-		}
-		.left-btn {
-			display: inline-block;
-			float: left;
-		}
-		.right-btn {
-			display: inline-block;
-			float: right;
-		}
-		i {
-			font-size: 18px;
-		}
-	}
-	.setup-body {
-		box-sizing: border-box;
-		padding-top: 30px;
-		padding-bottom: 40px;
-		width: 100%;
-		height: calc(100% - 48px);
-	}
-}
-.control-setup-time {
-	overflow: hidden;
-	position: relative;
-	width: 100%;
+	width: 26%;
 	height: 100%;
 	text-align: center;
-	.hour,
-	.minute {
-		display: inline-block;
-		position: absolute;
-		z-index: 2;
-		width: 30%;
-		height: 100%;
-		text-align: center;
-		li {
-			position: relative;
-			display: block;
-			width: 100%;
-			height: 20%;
-			font-size: 18px;
-			color: rgba(255, 255, 255, 0.6);
-			line-height: 46px;
-			span {
-				position: absolute;
-				right: 10%;
-				bottom: 0;
-				display: none;
-				margin-left: 5px;
-				margin-right: 5px;
-				font-size: 14px;
-				vertical-align: bottom;
-			}
+	color: $color2-1;
+	background-color: $color3-2;
+	li {
+		position: relative;
+		box-sizing: border-box;
+		height: 80px;
+		border-bottom: 1px solid $color1;
+		.title {
+			position: absolute;
+			top: 15px;
+			left: 15px;
 		}
-		.active {
-			font-size: 22px;
-			color: #fff;
-			span {
-				display: inline-block;
-			}
+		.state {
+			position: absolute;
+			left: 15px;
+			bottom: 15px;
 		}
-	}
-	.hour {
-		top: 0;
-		left: 20%;
-	}
-	.minute {
-		top: 0;
-		right: 20%;
-	}
-	.active-bg {
-		position: absolute;
-		top: 40%;
-		z-index: 1;
-		display: block;
-		width: 100%;
-		height: 20%;
-		background-color: rgba(255, 255, 255, 0.3);
+		.time-btn {
+			display: inline-block;
+			box-sizing: border-box;
+			margin: 15px 20px; 
+			width: 50px;
+			height: 50px;
+			padding-top: 17px;
+			border: 1px solid $color2-1;
+			border-radius: 50px;
+		}
+		.icon-btn {
+			position: absolute;
+			top: 28px;
+			right: 15px;
+		}
 	}
 }
 //btn
 .btn {
+	cursor: pointer;
 	padding: 10px 3em;
 	color: $color1;
 	background-color: $color2-2;

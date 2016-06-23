@@ -23,7 +23,9 @@
 </header>
 <ul class="aside-nav">
 	<li>时间闹钟</li>
-	<li class="active" onclick="setupTimeOpen()">时间闹钟</li>
+	<li class="active">时间闹钟</li>
+	<li>时间闹钟</li>
+	<li>时间闹钟</li>
 	<li>时间闹钟</li>
 	<li>时间闹钟</li>
 </ul>
@@ -31,7 +33,7 @@
 	<div class="time-alarm">
 		<div class="real-time-display" id="real_time">
 			<img class="bg" src="images/real-time-bg.png" alt="">
-			<div class="time-text"><i class="icon iconfont">11:30</i></div>
+			<div class="time-text"><span class="icon iconfont" onclick="setupTimeOpen(this)">11:30</span></div>
 		</div>
 		<div class="real-time-title">当前时间</div>
 		<hr class="real-time-hr">
@@ -46,10 +48,37 @@
 		</ul>
 		<button class="btn">确认添加</button>
 	</div>
+	<ul class="alarm-list">
+		<li>
+			<span class="title">闹钟1</span>
+			<span class="state">无重复</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)">08:30</span>
+			<span class="icon-btn" value="1"></span>
+		</li>
+		<li>
+			<span class="title">闹钟2</span>
+			<span class="state">自定义</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)">11:30</span>
+			<span class="icon-btn" value="1"></span>
+		</li>
+		<li>
+			<span class="title">闹钟3</span>
+			<span class="state">工作日</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)">09:30</span>
+			<span class="icon-btn" value="0"></span>
+		</li>
+		<li>
+			<span class="title">闹钟4</span>
+			<span class="state">无重复</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)">11:00</span>
+			<span class="icon-btn" value="1"></span>
+		</li>
+	</ul>
 </div>
 
 <script type="text/javascript" src="js/jquery2.2.4.min.js"></script>
 <script type="text/javascript" src="js/touch-0.2.14.min.js"></script>
+<script type="text/javascript" src="js/control.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 @import url(reset.css);
 @import url(iconfont.css);
+@import url(control.css);
 body {
   position: absolute;
   box-sizing: border-box;
@@ -7,7 +8,7 @@ body {
   width: 100%;
   height: 100%;
   color: #222222;
-  background-color: #EAEAEA; }
+  background-color: #eaeaea; }
 
 .header {
   position: absolute;
@@ -20,8 +21,8 @@ body {
     float: left;
     width: 120px;
     height: 100%;
-    color: #03A2DF;
-    background-color: #FFFFFF; }
+    color: #03a2df;
+    background-color: #fff; }
     .header .title i {
       position: absolute;
       top: 15px;
@@ -41,27 +42,29 @@ body {
         font-size: 12px;
         margin-bottom: 0; }
   .header .r-btn {
+    cursor: pointer;
     position: absolute;
     top: 18px;
     right: 1em;
     font-size: 32px;
-    color: #FFFFFF; }
+    color: #fff; }
 
 .top-nav {
   display: inline-block;
   float: left;
   width: calc(100% - 120px);
   height: 100%;
-  color: #FFFFFF;
+  color: #fff;
   text-align: center;
-  background-color: #3498DB; }
+  background-color: #3498dB; }
   .top-nav li {
+    cursor: pointer;
     display: inline-block;
     float: left;
     width: 200px;
     height: 100%;
     font-size: 12px;
-    border-right: 1px solid #EAEAEA; }
+    border-right: 1px solid #eaeaea; }
     .top-nav li i {
       display: block;
       margin-top: 11px;
@@ -70,7 +73,7 @@ body {
     .top-nav li span {
       display: block; }
   .top-nav .active {
-    background-color: #2C81BA; }
+    background-color: #2c81ba; }
 
 .aside-nav {
   position: absolute;
@@ -79,38 +82,43 @@ body {
   width: 150px;
   height: calc(100% - 75px);
   text-align: center;
-  background-color: #FFFFFF; }
+  background-color: #fff; }
   .aside-nav li {
+    cursor: pointer;
     display: block;
     box-sizing: border-box;
     padding: 13px;
     width: 100%;
     height: 40px;
     font-size: 12px;
-    border-bottom: 1px solid #EAEAEA; }
+    border-bottom: 1px solid #eaeaea; }
   .aside-nav .active {
-    color: #FFFFFF;
-    background-color: #2C81BA; }
+    color: #fff;
+    background-color: #2c81ba; }
 
 .content {
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px 0 0 5px;
-  background-color: #FFFFFF; }
-
-.time-alarm {
   box-sizing: border-box;
   padding: 15px;
   width: 100%;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  background-color: #fff; }
+
+.time-alarm {
+  overflow-y: auto;
+  display: inline-block;
+  float: left;
+  width: 73%;
+  height: 100%;
   color: #24557b;
   text-align: center; }
   .time-alarm .real-time-display {
     position: relative;
-    height: 255px; }
+    height: 65%;
+    min-height: 255px; }
     .time-alarm .real-time-display .bg {
-      width: 255px;
-      height: 255px;
+      height: 100%;
       -webkit-transform: rotate(0deg);
       -ms-transform: rotate(0deg);
       -o-transform: rotate(0deg);
@@ -119,119 +127,76 @@ body {
       position: absolute;
       top: calc(50% - 35px);
       width: 100%; }
-      .time-alarm .real-time-display .time-text i {
+      .time-alarm .real-time-display .time-text .icon {
+        cursor: pointer;
         font-size: 70px;
         letter-spacing: 4px; }
   .time-alarm .real-time-title {
-    padding: 10px; }
+    padding: 10px;
+    font-size: 1em; }
   .time-alarm .real-time-hr {
-    border-bottom: 1px solid #2C81BA; }
+    border-bottom: 1px solid #2c81ba; }
   .time-alarm .week-nav {
-    margin-top: 5px;
-    margin-bottom: 15px; }
+    padding: 5px 0 15px 0;
+    height: 11.5%;
+    min-height: 45px; }
     .time-alarm .week-nav li {
       float: left;
-      width: 14.2%;
-      height: 50px; }
+      width: 14.2%; }
       .time-alarm .week-nav li a {
+        cursor: pointer;
         box-sizing: border-box;
         display: inline-block;
         padding-top: 14px;
         width: 45px;
-        height: 45px; }
+        height: 45px;
+        font-size: 1em; }
     .time-alarm .week-nav .active a {
       border: 1px solid #24557b;
       border-radius: 45px; }
 
-.setup-time-window {
-  display: none;
+.alarm-list {
+  overflow-y: auto;
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 38%;
-  height: 90%;
-  background-color: #2C81BA; }
-  .setup-time-window .setup-header {
-    padding: 15px;
-    color: #FFFFFF;
-    text-align: center; }
-    .setup-time-window .setup-header .title {
-      display: inline-block;
-      margin: 2px; }
-    .setup-time-window .setup-header .left-btn {
-      display: inline-block;
-      float: left; }
-    .setup-time-window .setup-header .right-btn {
-      display: inline-block;
-      float: right; }
-    .setup-time-window .setup-header i {
-      font-size: 18px; }
-  .setup-time-window .setup-body {
-    box-sizing: border-box;
-    padding-top: 30px;
-    padding-bottom: 40px;
-    width: 100%;
-    height: calc(100% - 48px); }
-
-.control-setup-time {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
+  width: 26%;
   height: 100%;
-  text-align: center; }
-  .control-setup-time .hour,
-  .control-setup-time .minute {
-    display: inline-block;
-    position: absolute;
-    z-index: 2;
-    width: 30%;
-    height: 100%;
-    text-align: center; }
-    .control-setup-time .hour li,
-    .control-setup-time .minute li {
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 20%;
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 46px; }
-      .control-setup-time .hour li span,
-      .control-setup-time .minute li span {
-        position: absolute;
-        right: 10%;
-        bottom: 0;
-        display: none;
-        margin-left: 5px;
-        margin-right: 5px;
-        font-size: 14px;
-        vertical-align: bottom; }
-    .control-setup-time .hour .active,
-    .control-setup-time .minute .active {
-      font-size: 22px;
-      color: #fff; }
-      .control-setup-time .hour .active span,
-      .control-setup-time .minute .active span {
-        display: inline-block; }
-  .control-setup-time .hour {
-    top: 0;
-    left: 20%; }
-  .control-setup-time .minute {
-    top: 0;
-    right: 20%; }
-  .control-setup-time .active-bg {
-    position: absolute;
-    top: 40%;
-    z-index: 1;
-    display: block;
-    width: 100%;
-    height: 20%;
-    background-color: rgba(255, 255, 255, 0.3); }
+  text-align: center;
+  color: #3498dB;
+  background-color: #e0e0e0; }
+  .alarm-list li {
+    position: relative;
+    box-sizing: border-box;
+    height: 80px;
+    border-bottom: 1px solid #fff; }
+    .alarm-list li .title {
+      position: absolute;
+      top: 15px;
+      left: 15px; }
+    .alarm-list li .state {
+      position: absolute;
+      left: 15px;
+      bottom: 15px; }
+    .alarm-list li .time-btn {
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 15px 20px;
+      width: 50px;
+      height: 50px;
+      padding-top: 17px;
+      border: 1px solid #3498dB;
+      border-radius: 50px; }
+    .alarm-list li .icon-btn {
+      position: absolute;
+      top: 28px;
+      right: 15px; }
 
 .btn {
+  cursor: pointer;
   padding: 10px 3em;
-  color: #FFFFFF;
-  background-color: #2C81BA;
+  color: #fff;
+  background-color: #2c81ba;
   border: 0;
   border-radius: 34px; }
 
