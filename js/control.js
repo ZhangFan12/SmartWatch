@@ -67,13 +67,7 @@ var setupTimeWindow = function(){
 			return y
 		}
 
-		var hourValue = timeValue(h);
-		hourValue = num2(hourValue);//取2位整数
-
-		var minuteValue = (timeValue(m)-1);
-		minuteValue = num2(minuteValue);//取2位整数
-
-		var text = hourValue + ':' + minuteValue;
+		var text = num2(timeValue(h)) + ':' + num2((timeValue(m)-1));//取2位整数
 
 		$("#setup-time-window").remove();
 		return text
