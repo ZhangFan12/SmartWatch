@@ -3,17 +3,16 @@ var setupTimeWindow = function(){
 	var liHeight;
 	//打开窗口
 	this.openWindow = function(hoursNum,minutesNum,hourValue,minuteValue){
-		// $(".time-alarm").animate({width:'69%'});
-		// $(".alarm-list").fadeOut();
 
-		var hoursHtml = "";
+		var hoursHtml = ''
+;
 		for (var i = 1; i <= hoursNum; i++) {
-			hoursHtml = hoursHtml + "<li>" + num2(i) + "<span>时</span></li>";
+			hoursHtml = hoursHtml + '<li>' + num2(i) + '<span>时</span></li>';
 		};
 
-		var minutesHtml = "";
+		var minutesHtml = '';
 		for (var i = 0; i <= minutesNum-1; i++) {
-			minutesHtml = minutesHtml + "<li>" + num2(i) + "<span>分</span></li>";
+			minutesHtml = minutesHtml + '<li>' + num2(i) + '<span>分</span></li>';
 		};
 
 		var windowHtml = '<div id="setup-time-window">' +
@@ -36,32 +35,32 @@ var setupTimeWindow = function(){
 		'</div>';
 
 		//窗口渲染
-		$(".content").append(windowHtml);
-		$("#setup-time-window").fadeIn();
+		$('.content').append(windowHtml);
+		$('#setup-time-window').fadeIn();
 
 
 		//设置时间的li高度自适应
-		var a = $("#control-setup-time li").height();
-		$("#control-setup-time li").css("line-height", a + "px")
+		var a = $('#control-setup-time li').height();
+		$('#control-setup-time li').css('line-height', a + 'px')
 
 		//加载初始时间
-		var hourMoveValue = this.iniTimeDisplay($("#hour_move"),hoursNum,hourValue);
-		var minuteMoveValue = this.iniTimeDisplay($("#minute_move"),minutesNum,parseInt(minuteValue)+1);
+		var hourMoveValue = this.iniTimeDisplay($('#hour_move'),hoursNum,hourValue);
+		var minuteMoveValue = this.iniTimeDisplay($('#minute_move'),minutesNum,parseInt(minuteValue)+1);
 
 		//加载时间滑动效果
-		this.setupTime($("#hour_move"),hoursNum,hourMoveValue);
-		this.setupTime($("#minute_move"),minutesNum,minuteMoveValue);
+		this.setupTime($('#hour_move'),hoursNum,hourMoveValue);
+		this.setupTime($('#minute_move'),minutesNum,minuteMoveValue);
 	}
 
 	//关闭窗口
 	this.closeWindow = function() {
-		$("#setup-time-window").remove();
+		$('#setup-time-window').remove();
 	}
 
 	//修改后保存
 	this.save = function() {
-		var h = parseInt($("#hour_move").css("top"));
-		var m = parseInt($("#minute_move").css("top"));
+		var h = parseInt($('#hour_move').css('top'));
+		var m = parseInt($('#minute_move').css('top'));
 		var timeValue = function(x) {
 			var y = -x/50+3;
 			return y
@@ -69,17 +68,16 @@ var setupTimeWindow = function(){
 
 		var text = num2(timeValue(h)) + ':' + num2((timeValue(m)-1));//取2位整数
 
-		$("#setup-time-window").remove();
+		$('#setup-time-window').remove();
 		return text
-		// console.log(timeValue(h) + ":" + timeValue(m))
 	}
 
 	//弹窗初始时间显示
 	this.iniTimeDisplay = function(id,num,Value) {
 		var topValueArray = topValue(id,num);//获取top值数组
 
-		id.css("top",topValueArray[Value - 1] + "px");
-		id.find("li").eq(Value - 1).addClass('active');
+		id.css('top',topValueArray[Value - 1] + 'px');
+		id.find('li').eq(Value - 1).addClass('active');
 
 		return topValueArray[Value - 1]//返回top值
 	}
@@ -89,32 +87,32 @@ var setupTimeWindow = function(){
 		//滑动时
 		touch.on(id, 'swiping', function(ev){
 			var totalMoveValue = moveValue + ev.distanceY;
-			id.css("top",totalMoveValue + 'px');
-			id.find("li").removeClass('active');
+			id.css('top',totalMoveValue + 'px');
+			id.find('li').removeClass('active');
 		});
 		//滑动结束
 		touch.on(id, 'swipeend', function(ev){
 			moveValue = moveValue + ev.distanceY;
 
-			var liHeight = id.find("li").outerHeight(true);
+			var liHeight = id.find('li').outerHeight(true);
 
 			var topValueArray = topValue(id,num);//获取top值数组
 
 			$.each(topValueArray, function(i){
 				if (moveValue > topValueArray[i+1] + liHeight/2 && moveValue <= topValueArray[i] + liHeight/2) {
-					$(id).css("top",topValueArray[i] + "px");
+					$(id).css('top',topValueArray[i] + 'px');
 					moveValue = topValueArray[i];
-					id.find("li").eq(i).addClass('active');
+					id.find('li').eq(i).addClass('active');
 				} else if (moveValue > topValueArray[0] + liHeight/2) {
-					$(id).css("top",topValueArray[0] + "px");
+					$(id).css('top',topValueArray[0] + 'px');
 					moveValue = topValueArray[0];
-					id.find("li").eq(0).addClass('active');
-					console.log("超出最小值");
+					id.find('li').eq(0).addClass('active');
+					console.log('超出最小值');
 				} else if (moveValue <= topValueArray[num-1] + liHeight/2) {
-					$(id).css("top",topValueArray[num-1] + "px");
+					$(id).css('top',topValueArray[num-1] + 'px');
 					moveValue = topValueArray[num-1];
-					id.find("li").eq(num-1).addClass('active');
-					console.log("超出最大值");
+					id.find('li').eq(num-1).addClass('active');
+					console.log('超出最大值');
 				}
 			});
 			// console.log(moveValue)
@@ -124,7 +122,7 @@ var setupTimeWindow = function(){
 	//生成top值数组
 	var topValue = function(id,num) {
 		num = num - 1;
-		var liHeight = id.find("li").outerHeight(true);
+		var liHeight = id.find('li').outerHeight(true);
 		var topArray = new Array();
 		for (var i = 0; i <= num; i++) {
 			x = i - 2;
@@ -137,7 +135,7 @@ var setupTimeWindow = function(){
 
 //icon-btn按钮
 var IconBtn = function(object) {
-	object.html("<span></span><i></i>");
+	object.html('<span></span><i></i>');
 	object.each(function() {
 		if ($(this).attr('value') == '0') {
 			$(this).find('span').css({'background-color': '#eaeaea'});
@@ -166,10 +164,10 @@ var IconBtn = function(object) {
 //取2位整数
 function num2(Value) {
 	if (Value.toString().length == 1) {
-		Value = "0" + Value;
+		Value = '0' + Value;
 		return Value;
 	}else {
-		Value = "" + Value;
+		Value = '' + Value;
 		return Value;
 	}
 }
