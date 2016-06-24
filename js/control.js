@@ -8,12 +8,12 @@ var setupTimeWindow = function(){
 
 		var hoursHtml = "";
 		for (var i = 1; i <= hoursNum; i++) {
-			hoursHtml = hoursHtml + "<li>" + i + "<span>时</span></li>";
+			hoursHtml = hoursHtml + "<li>" + num2(i) + "<span>时</span></li>";
 		};
 
 		var minutesHtml = "";
 		for (var i = 0; i <= minutesNum-1; i++) {
-			minutesHtml = minutesHtml + "<li>" + i + "<span>分</span></li>";
+			minutesHtml = minutesHtml + "<li>" + num2(i) + "<span>分</span></li>";
 		};
 
 		var windowHtml = '<div id="setup-time-window">' +
@@ -66,7 +66,14 @@ var setupTimeWindow = function(){
 			var y = -x/50+3;
 			return y
 		}
-		var text = timeValue(h) + ':' + (timeValue(m)-1);
+
+		var hourValue = timeValue(h);
+		hourValue = num2(hourValue);//取2位整数
+
+		var minuteValue = (timeValue(m)-1);
+		minuteValue = num2(minuteValue);//取2位整数
+
+		var text = hourValue + ':' + minuteValue;
 
 		$("#setup-time-window").remove();
 		return text
@@ -134,7 +141,6 @@ var setupTimeWindow = function(){
 	}
 };
 
-
 //icon-btn按钮
 var IconBtn = function(object) {
 	object.html("<span></span><i></i>");
@@ -161,4 +167,15 @@ var IconBtn = function(object) {
 			$(this).find('i').animate({right:'0'},'fast');
 		}
 	});
+}
+
+//取2位整数
+function num2(Value) {
+	if (Value.toString().length == 1) {
+		Value = "0" + Value;
+		return Value;
+	}else {
+		Value = "" + Value;
+		return Value;
+	}
 }

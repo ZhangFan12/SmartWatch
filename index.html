@@ -33,7 +33,7 @@
 	<div class="time-alarm">
 		<div class="real-time-display" id="real_time">
 			<img class="bg" src="images/real-time-bg.png" alt="">
-			<div class="time-text"><span class="icon iconfont" onclick="setupTimeOpen(this)">11:30</span></div>
+			<div class="time-text"><span class="icon iconfont time-btn" onclick="setupTimeOpen(this)" value="0">11:30</span></div>
 		</div>
 		<div class="real-time-title">当前时间</div>
 		<hr class="real-time-hr">
@@ -46,31 +46,31 @@
 			<li><a>周一</a></li>
 			<li><a>周一</a></li>
 		</ul>
-		<button class="btn">确认添加</button>
+		<button class="btn">添加闹钟</button>
 	</div>
 	<ul class="alarm-list">
 		<li>
 			<span class="title">闹钟1</span>
 			<span class="state">无重复</span>
-			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">8:30</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">08:00</span>
 			<span class="icon-btn" value="1"></span>
 		</li>
 		<li>
 			<span class="title">闹钟2</span>
 			<span class="state">自定义</span>
-			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">11:30</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">08:30</span>
 			<span class="icon-btn" value="1"></span>
 		</li>
 		<li>
 			<span class="title">闹钟3</span>
 			<span class="state">工作日</span>
-			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">9:30</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">08:35</span>
 			<span class="icon-btn" value="0"></span>
 		</li>
 		<li>
 			<span class="title">闹钟4</span>
 			<span class="state">无重复</span>
-			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">11:00</span>
+			<span class="time-btn" onclick="setupTimeOpen(this)" value="0">15:30</span>
 			<span class="icon-btn" value="1"></span>
 		</li>
 	</ul>
