@@ -24,7 +24,6 @@ function RealTime() {
 //判断是否已有闹钟
 function alarmList() {
 	if ($('.alarm-list li').length == 0) {
-		// console.log("无闹钟")
 		$('.time-alarm').animate({width:'100%'});
 		$('.alarm-list').fadeOut();
 	}else {
@@ -36,23 +35,25 @@ function alarmList() {
 //闹钟添加
 function addAlarm() {
 	var x = $('#alarm_value').html();
-	var num = $('.alarm-list li').length + 1;
+	var num = $('.alarm-list li').length;
 	var addAlarmHtml = '<li>' +
-			'<span class="title">闹钟' + num + '</span>' +
+			'<span class="title">闹钟' + (num + 1) + '</span>' +
 			'<span class="state">自定义</span>' +
 			'<span class="time-btn" onclick="setupTimeOpen(this)" value="0">' + x +'</span>' +
-			'<span class="icon-btn" value="1"></span>' +
+			'<span class="icon-btn" onclick="IconBtnClick(this)" value="1"></span>' +
 		'</li>';
 	$(addAlarmHtml).appendTo('.alarm-list');
-	IconBtn($('.icon-btn'));
-	alarmList();
-	delAlarm();
+
+	IconBtn($('.icon-btn'));//初始化闹钟开关
+	alarmList();//判断是否已有闹钟
+	delAlarm($('.alarm-list .time-btn:eq(' + num + ')'));
 }
-//闹钟删除
-function delAlarm() {
-	touch.on('.alarm-list .time-btn', 'hold', function(ev){
+//删除闹钟
+function delAlarm(id) {
+	touch.on(id, 'hold', function(ev){
 		var r=confirm("确认删除闹钟吗？");
 		if (r==true){
+			console.log(this);
 		    this.parentNode.setAttribute('name','delete');
 		    $('.alarm-list li[name="delete"]').remove();
 			alarmList();
@@ -260,7 +261,7 @@ var setupTimeWindow = function(){
 	}
 };
 
-//icon-btn按钮
+//icon-btn按钮初始化
 function IconBtn(object) {
 	object.html('<span></span><i></i>');
 	object.each(function() {
@@ -269,23 +270,24 @@ function IconBtn(object) {
 			$(this).find('i').css({'right':'36px'});
 		}
 	});
-	object.click(function() {
-		if ($(this).attr('value') == '1') {
-			$(this).attr('value','0');
-			$(this).find('span').css({
-				'animation': 'icon-btn-off 0.5s',
-				'background-color': '#eaeaea'
-			});
-			$(this).find('i').animate({right:'36px'},'fast');
-		} else if($(this).attr('value') == '0') {
-			$(this).attr('value','1');
-			$(this).find('span').css({
-				'animation': 'icon-btn-on 0.5s',
-				'background-color': '#f39c12'
-			});
-			$(this).find('i').animate({right:'0'},'fast');
-		}
-	});
+}
+//icon-btn按钮点击切换
+function IconBtnClick(object) {
+	if ($(object).attr('value') == '1') {
+		$(object).attr('value','0');
+		$(object).find('span').css({
+			'animation': 'icon-btn-off 0.5s',
+			'background-color': '#eaeaea'
+		});
+		$(object).find('i').animate({right:'36px'},'fast');
+	} else if($(object).attr('value') == '0') {
+		$(object).attr('value','1');
+		$(object).find('span').css({
+			'animation': 'icon-btn-on 0.5s',
+			'background-color': '#f39c12'
+		});
+		$(object).find('i').animate({right:'0'},'fast');
+	}
 }
 
 //取2位整数
