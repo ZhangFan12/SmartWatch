@@ -127,11 +127,15 @@ body {
 }
 
 //时间闹钟
+.time-alarm-shell {
+	width: 100%;
+	height: 100%;
+}
 .time-alarm {
 	overflow-y :auto;
 	display: inline-block;
 	float: left;
-	width: 73%;
+	width: 100%;
 	height: 100%;
 	color: $color2-4;
 	text-align: center;
@@ -193,6 +197,7 @@ body {
 }
 .alarm-list {
 	overflow-y :auto;
+	display: none;
 	position: absolute;
 	right: 0;
 	bottom: 0;

@@ -1,3 +1,130 @@
+//获取系统时间显示
+function RealTime() {
+
+	var myDate = new Date();
+	var timeValue = {
+		hours: myDate.getHours(),
+		minutes: myDate.getMinutes(),
+	}
+	
+	this.timeHtml = function(hours,minutes) {
+		$('#real_time .icon').html(num2(hours) + ':' + num2(minutes));
+	}
+
+	this.angleLoop = function() {
+		var setTime = $('#real_time .icon:eq(0)').html().split(':');
+		var angle = (parseInt(setTime[0]*60) + parseInt(setTime[1]))/720*360
+		$('#real_time .bg').css('transform','rotate('+ angle +'deg)');
+	}
+
+	this.timeHtml(timeValue.hours,timeValue.minutes);
+	this.angleLoop();
+}
+
+//判断是否已有闹钟
+function alarmList() {
+	if ($('.alarm-list li').length == 0) {
+		// console.log("无闹钟")
+		$('.time-alarm').animate({width:'100%'});
+		$('.alarm-list').fadeOut();
+	}else {
+		$('.time-alarm').animate({width:'73%'});
+		$('.alarm-list').fadeIn();
+	}
+}
+
+//闹钟添加
+function addAlarm() {
+	var x = $('#alarm_value').html();
+	var num = $('.alarm-list li').length + 1;
+	var addAlarmHtml = '<li>' +
+			'<span class="title">闹钟' + num + '</span>' +
+			'<span class="state">自定义</span>' +
+			'<span class="time-btn" onclick="setupTimeOpen(this)" value="0">' + x +'</span>' +
+			'<span class="icon-btn" value="1"></span>' +
+		'</li>';
+	$(addAlarmHtml).appendTo('.alarm-list');
+	IconBtn($('.icon-btn'));
+	alarmList();
+	delAlarm();
+}
+//闹钟删除
+function delAlarm() {
+	touch.on('.alarm-list .time-btn', 'hold', function(ev){
+		var r=confirm("确认删除闹钟吗？");
+		if (r==true){
+		    this.parentNode.setAttribute('name','delete');
+		    $('.alarm-list li[name="delete"]').remove();
+			alarmList();
+		}else{
+		    this.parentNode.removeAttribute("name");
+		}
+	});
+}
+
+//打开时间设置窗口
+function setupTimeOpen(object){
+	var timeArrays = object.innerHTML.split(':');
+	var hourValue = timeArrays[0];
+	var minuteValue = timeArrays[1];
+
+	var a = new setupTimeWindow();
+	a.openWindow(24,60,hourValue,minuteValue);//打开时间设置窗口
+
+	object.setAttribute('value','1');
+
+	$('.time-alarm').animate({width:'69%'});
+	$('.alarm-list').fadeOut();
+};
+
+//关闭时间设置窗口
+function setupTimeClose(){
+	var a = new setupTimeWindow();
+	var b = $('.time-btn');
+	a.closeWindow();//关闭时间设置窗口
+
+	b.eq(searchValue1(b)).attr('value','0');
+	if ($('.alarm-list li').length == 0) {
+		$('.time-alarm').animate({width:'100%'});
+	}else {
+		$('.time-alarm').animate({width:'73%'});
+		$('.alarm-list').fadeIn();
+	}
+};
+
+//保存时间设置窗口
+function setupTimeSave(){
+	var a = new setupTimeWindow();
+	var b = $('.time-btn');
+	b.eq(searchValue1(b)).html(a.save());//保存时间设置窗口
+
+	b.eq(searchValue1(b)).attr('value','0');
+	if ($('.alarm-list li').length == 0) {
+		$('.time-alarm').animate({width:'100%'});
+	}else {
+		$('.time-alarm').animate({width:'73%'});
+		$('.alarm-list').fadeIn();
+	}
+
+	var setTime = $('#real_time .icon:eq(0)').html().split(':');
+	var angle = (parseInt(setTime[0]*60) + parseInt(setTime[1]))/720*360
+	$('#real_time .bg').css('transform','rotate('+ angle +'deg)');
+};
+
+//查询value为1的标签，返回标签数组角标
+function searchValue1(timeBtn){
+	var x;
+	$.each(timeBtn, function(i) {
+		if (timeBtn.eq(i).attr('value') == '1') {
+			x = i;
+		}
+	});
+	// console.log(x);
+	return x
+}
+
+
+
 //设置时间窗口
 var setupTimeWindow = function(){
 	var liHeight;
@@ -40,8 +167,11 @@ var setupTimeWindow = function(){
 
 
 		//设置时间的li高度自适应
-		var a = $('#control-setup-time li').height();
-		$('#control-setup-time li').css('line-height', a + 'px')
+		liHeight = $('#setup-time-window li').height();
+		$('#setup-time-window li').css({
+			'line-height': liHeight + 'px',
+			'height': liHeight + 'px'
+		})
 
 		//加载初始时间
 		var hourMoveValue = this.iniTimeDisplay($('#hour_move'),hoursNum,hourValue);
@@ -59,13 +189,13 @@ var setupTimeWindow = function(){
 
 	//修改后保存
 	this.save = function() {
+		var liHeight = $('#setup-time-window li').height();
 		var h = parseInt($('#hour_move').css('top'));
 		var m = parseInt($('#minute_move').css('top'));
 		var timeValue = function(x) {
-			var y = -x/50+3;
+			var y = -x/liHeight+3;
 			return y
 		}
-
 		var text = num2(timeValue(h)) + ':' + num2((timeValue(m)-1));//取2位整数
 
 		$('#setup-time-window').remove();
@@ -94,8 +224,6 @@ var setupTimeWindow = function(){
 		touch.on(id, 'swipeend', function(ev){
 			moveValue = moveValue + ev.distanceY;
 
-			var liHeight = id.find('li').outerHeight(true);
-
 			var topValueArray = topValue(id,num);//获取top值数组
 
 			$.each(topValueArray, function(i){
@@ -107,12 +235,12 @@ var setupTimeWindow = function(){
 					$(id).css('top',topValueArray[0] + 'px');
 					moveValue = topValueArray[0];
 					id.find('li').eq(0).addClass('active');
-					console.log('超出最小值');
+					// console.log('超出最小值');
 				} else if (moveValue <= topValueArray[num-1] + liHeight/2) {
 					$(id).css('top',topValueArray[num-1] + 'px');
 					moveValue = topValueArray[num-1];
 					id.find('li').eq(num-1).addClass('active');
-					console.log('超出最大值');
+					// console.log('超出最大值');
 				}
 			});
 			// console.log(moveValue)
@@ -122,7 +250,6 @@ var setupTimeWindow = function(){
 	//生成top值数组
 	var topValue = function(id,num) {
 		num = num - 1;
-		var liHeight = id.find('li').outerHeight(true);
 		var topArray = new Array();
 		for (var i = 0; i <= num; i++) {
 			x = i - 2;
@@ -134,7 +261,7 @@ var setupTimeWindow = function(){
 };
 
 //icon-btn按钮
-var IconBtn = function(object) {
+function IconBtn(object) {
 	object.html('<span></span><i></i>');
 	object.each(function() {
 		if ($(this).attr('value') == '0') {

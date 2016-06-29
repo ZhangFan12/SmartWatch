@@ -105,11 +105,15 @@ body {
   border-radius: 5px 0 0 5px;
   background-color: #fff; }
 
+.time-alarm-shell {
+  width: 100%;
+  height: 100%; }
+
 .time-alarm {
   overflow-y: auto;
   display: inline-block;
   float: left;
-  width: 73%;
+  width: 100%;
   height: 100%;
   color: #24557b;
   text-align: center; }
@@ -157,6 +161,7 @@ body {
 
 .alarm-list {
   overflow-y: auto;
+  display: none;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -193,6 +198,7 @@ body {
       right: 15px; }
 
 .btn {
+  outline: none;
   cursor: pointer;
   padding: 10px 3em;
   color: #fff;
