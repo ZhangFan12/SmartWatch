@@ -15,22 +15,23 @@
 		</div>
 	</div>
 	<ul class="top-nav">
-		<li><i class="icon iconfont">&#xe60c;</i><span>功能</span></li>
-		<li class="active"><i class="icon iconfont">&#xe600;</i><span>设置</span></li>
+		<li class="active"><i class="icon iconfont">&#xe60c;</i><span>功能</span></li>
+		<li><i class="icon iconfont">&#xe600;</i><span>设置</span></li>
 		<li><i class="icon iconfont">&#xe603;</i><span>其它</span></li>
 	</ul>
 	<i class="icon iconfont r-btn">&#xe607;</i>
 </header>
+<!-- 功能 -->
 <ul class="aside-nav">
-	<li>时间闹钟</li>
 	<li class="active">时间闹钟</li>
-	<li>时间闹钟</li>
-	<li>时间闹钟</li>
-	<li>时间闹钟</li>
-	<li>时间闹钟</li>
+	<li>地图定位</li>
+	<li>畅聊语音</li>
+	<li>跌倒告警</li>
+	<li>脱落警示</li>
 </ul>
 <div class="content">
-	<div class="time-alarm-shell">
+	<!-- 时间闹钟 -->
+	<div class="box-shell">
 		<div class="time-alarm">
 			<div class="real-time-display" id="real_time">
 				<img class="bg" src="images/real-time-bg.png" alt="">
@@ -47,16 +48,82 @@
 				<li><a>周一</a></li>
 				<li><a>周一</a></li>
 			</ul>
-			<button class="btn" onclick="addAlarm()">添加闹钟</button>
+			<button class="btn btn-time" onclick="addAlarm()">添加闹钟</button>
 		</div>
 		<ul class="alarm-list">
 		</ul>
 	</div>
+	<!-- /时间闹钟 -->
+	<!-- 地图定位 -->
+	<div class="box-shell">
+		<div class="map-gps"></div>
+		<button class="btn btn-red">菜单</button>
+	</div>
+	<!-- /地图定位 -->
+	<!-- 畅聊语音 -->
+	<div class="box-shell">
+		畅聊语音
+	</div>
+	<!-- /畅聊语音 -->
+	<!-- 跌倒告警 -->
+	<div class="box-shell">
+		跌倒告警
+	</div>
+	<!-- /跌倒告警 -->
+	<!-- 脱落警示 -->
+	<div class="box-shell">
+		脱落警示
+	</div>
+	<!-- /脱落警示 -->
 </div>
+<!-- /功能 -->
+<!-- 设置 -->
+<ul class="aside-nav">
+	<li class="active">亲情号码</li>
+	<li>用户指纹</li>
+</ul>
+<div class="content">
+	<!-- 亲情号码 -->
+	<div class="box-shell">
+		亲情号码
+	</div>
+	<!-- /亲情号码 -->
+	<!-- 用户指纹 -->
+	<div class="box-shell">
+		用户指纹
+	</div>
+	<!-- /用户指纹 -->
+</div>
+<!-- /设置 -->
+<!-- 其它 -->
+<ul class="aside-nav">
+	<li class="active">产品介绍</li>
+	<li>版本更新</li>
+	<li>当前版本</li>
+</ul>
+<div class="content">
+	<!-- 产品介绍 -->
+	<div class="box-shell">
+		产品介绍
+	</div>
+	<!-- /产品介绍 -->
+	<!-- 版本更新 -->
+	<div class="box-shell">
+		版本更新
+	</div>
+	<!-- /版本更新 -->
+	<!-- 当前版本 -->
+	<div class="box-shell">
+		当前版本
+	</div>
+	<!-- /当前版本 -->
+</div>
+<!-- /其它 -->
 
+<!-- js -->
 <script type="text/javascript" src="js/jquery2.2.4.min.js"></script>
 <script type="text/javascript" src="js/touch-0.2.14.min.js"></script>
-<script type="text/javascript" src="js/control.js"></script>
+<script type="text/javascript" src="js/time-alarm.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
