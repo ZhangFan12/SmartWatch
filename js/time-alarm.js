@@ -261,6 +261,17 @@ var setupTimeWindow = function(){
 	}
 };
 
+//取2位整数
+function num2(Value) {
+	if (Value.toString().length == 1) {
+		Value = '0' + Value;
+		return Value;
+	}else {
+		Value = '' + Value;
+		return Value;
+	}
+}
+
 //icon-btn按钮初始化
 function IconBtn(object) {
 	object.html('<span></span><i></i>');
@@ -287,16 +298,5 @@ function IconBtnClick(object) {
 			'background-color': '#f39c12'
 		});
 		$(object).find('i').animate({right:'0'},'fast');
-	}
-}
-
-//取2位整数
-function num2(Value) {
-	if (Value.toString().length == 1) {
-		Value = '0' + Value;
-		return Value;
-	}else {
-		Value = '' + Value;
-		return Value;
 	}
 }
