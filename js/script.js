@@ -24,6 +24,9 @@ function topNav(object) {
 		$('.aside-nav:eq(' + num + ')').css('display','block');
 		//初始化二级导航
 		secondNav($('.aside-nav:eq(' + num + ') li'),num);
+		$('.aside-nav:eq(' + num + ') li').removeClass('active');
+		$('.aside-nav:eq(' + num + ') li:eq(0)').addClass('active');
+		$('.content:eq(' + num + ') .box-shell').css('display','none');
 		$('.content:eq(' + num + ') .box-shell:eq(0)').css('display','block');
 	});
 }
