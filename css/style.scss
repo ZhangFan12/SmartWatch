@@ -261,6 +261,33 @@ body {
 	bottom: 0;
 	width: 18%;
 }
+//跌倒警告
+.fall-alarm {
+	position: absolute;
+	top: 10%;
+	width: 100%;
+	text-align: center;
+	img {
+		height: 80%;
+	}
+	.title {
+		color: $color1-1;
+		font-size: 1.4em;
+	}
+}
+//脱落警示
+.shed-warn {
+	position: absolute;
+	top: 10%;
+	width: 100%;
+	text-align: center;
+	img {
+		height: 80%;
+	}
+	.title {
+		font-size: 1.4em;
+	}
+}
 //btn
 .btn {
 	box-sizing: border-box;

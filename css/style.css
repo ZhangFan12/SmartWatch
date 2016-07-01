@@ -329,6 +329,27 @@ body {
   bottom: 0;
   width: 18%; }
 
+.fall-alarm {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center; }
+  .fall-alarm img {
+    height: 80%; }
+  .fall-alarm .title {
+    color: #fff;
+    font-size: 1.4em; }
+
+.shed-warn {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center; }
+  .shed-warn img {
+    height: 80%; }
+  .shed-warn .title {
+    font-size: 1.4em; }
+
 .btn {
   box-sizing: border-box;
   outline: none;
