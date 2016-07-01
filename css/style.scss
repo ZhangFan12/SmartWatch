@@ -264,12 +264,13 @@ body {
 //跌倒警告
 .fall-alarm {
 	position: absolute;
-	top: 10%;
-    left: 10%;
-    width: 80%;
+	top: 15%;
+    left: 20%;
+    width: 60%;
+    height: 70%;
 	text-align: center;
 	img {
-		height: 80%;
+		height: 90%;
 	}
 	.title {
 		color: $color1-1;
@@ -279,15 +280,41 @@ body {
 //脱落警示
 .shed-warn {
 	position: absolute;
-	top: 10%;
-    left: 10%;
-    width: 80%;
-	text-align: center;
+	top: 15%;
+    left: 25%;
+    width: 60%;
+    height: 70%;
+	// text-align: center;
 	img {
-		height: 80%;
+		display: inline-block;
+		float: left;
+		height: 100%;
 	}
 	.title {
-		font-size: 1.4em;
+		display: inline-block;
+		float: left;
+		margin-top: 12%;
+		margin-left: 10%;
+		font-size: 1.2em;
+		font-weight: bold;
+		span {
+			color: $color4-1;
+		}
+	}
+	.text {
+		display: inline-block;
+		float: left;
+		margin-top: 4%;
+		margin-left: 10%;
+		width: 50%;
+		.name {
+			margin-bottom: 0.5em;
+			font-size: 1.2em;
+			font-weight: bold;
+		}
+		p {
+			line-height: 1.6em;
+		}
 	}
 }
 //用户指纹
