@@ -74,37 +74,63 @@ function reset(object,value) {
 	console.log(object.attr('value'));
 	object.val(value);
 }
-
-//添加用户指纹
+//判断右侧列表是否有值
+function rightList(num,value) {
+	console.log(num + ',' + value)
+	if (value == 0) {
+		$('.right-list').fadeOut();
+		if (num == 0) {
+			$('.famliy-num').animate({width:'68%'});
+		}else if (num == 1) {
+			$('.user-finger').animate({width:'93%'});
+		}
+	}else {
+		$('.right-list').fadeIn();
+		if (num == 0) {
+			$('.famliy-num').animate({width:'40%'});
+		}else if (num == 1) {
+			$('.user-finger').animate({width:'70%'});
+		}
+	}
+}
+//添加亲情号码&用户指纹
 function addRightList(object) {
+	var famliyNumValue = $('.famliy-num input').val();
+	addFamliyNumHtml = '<dd>' +
+		'<span>' + famliyNumValue + '</span>' +
+		'<i class="icon iconfont">&#xe60b;</i>' +
+		'<i class="icon iconfont" onclick="delRightList($(this),0)">&#xe601;</i>' +
+	'</dd>';
+
 	var fingerValue = $('.user-finger input').val();
 	addFingerHtml = '<dd>' +
 		'<img class="logo" src="images/user-finger-img1.png" alt="">' +
 		'<span>' + fingerValue + '</span>' +
 		'<i class="icon iconfont">&#xe60b;</i>' +
-		'<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>' +
-	'</dd>';
-
-	var famliyNumValue = $('.famliy-num input').val();
-	addFamliyNumHtml = '<dd>' +
-		'<span>' + famliyNumValue + '</span>' +
-		'<i class="icon iconfont">&#xe60b;</i>' +
-		'<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>' +
+		'<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>' +
 	'</dd>';
 
 	var addList = object.parents('.box-shell').children('.right-list')
 
 	if (object.parents('.famliy-num').length == 1) {
 		$(addFamliyNumHtml).appendTo(addList);
+
+	    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
+	    rightList(0,length);
 	} else if (object.parents('.user-finger').length == 1) {
 		$(addFingerHtml).appendTo(addList);
+
+	    var length = $('.content:eq(1) .box-shell:eq(1) dd').length;
+	    rightList(1,length);
 	}
 }
-//删除用户指纹
-function delRightList(object) {
+//删除亲情号码&用户指纹
+function delRightList(object,num) {
 	var r=confirm("确认删除用户指纹吗？");
 	if (r==true){
 	    object.parents('dd').remove();
+	    var length = $('.content:eq(1) .box-shell:eq(' + num + ') dd').length;
+	    rightList(num,length);
 	}else{
 		return
 	}
