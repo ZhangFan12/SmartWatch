@@ -25,9 +25,9 @@
 <ul class="aside-nav">
 	<li class="active">时间闹钟</li>
 	<li>地图定位</li>
-	<li>畅聊语音</li>
 	<li>跌倒告警</li>
 	<li>脱落警示</li>
+	<!-- <li>畅聊语音</li> -->
 </ul>
 <div class="content">
 	<!-- 时间闹钟 -->
@@ -60,11 +60,6 @@
 		<button class="btn btn-red">菜单</button>
 	</div>
 	<!-- /地图定位 -->
-	<!-- 畅聊语音 -->
-	<div class="box-shell">
-		畅聊语音
-	</div>
-	<!-- /畅聊语音 -->
 	<!-- 跌倒告警 -->
 	<div class="box-shell">
 		<div class="fall-alarm">
@@ -89,6 +84,11 @@
 		</div>
 	</div>
 	<!-- /脱落警示 -->
+	<!-- 畅聊语音 -->
+	<!-- <div class="box-shell">
+		畅聊语音
+	</div> -->
+	<!-- /畅聊语音 -->
 </div>
 <!-- /功能 -->
 <!-- 设置 -->
@@ -104,25 +104,26 @@
 			<div class="body">
 				<label><i class="icon iconfont">&#xe608;</i></label>	
 				<input type="text"></input>
-				<button><i class="icon iconfont">&#xe60e;</i></button>	
+				<button><i class="icon iconfont" onclick="addRightList($(this))">&#xe60e;</i></button>	
 			</div>
 		</div>
 		<dl class="right-list">
 			<dt>已添加亲情号码</dt>
 			<dd>
-				13333333333
+				<span>13333333333</span>
 				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont">&#xe601;</i>
+				<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>
+				<img class="active" src="images/user-finger-img2.png" alt="">
 			</dd>
 			<dd>
-				13333333333
+				<span>13333333333</span>
 				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont">&#xe601;</i>
+				<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>
 			</dd>
 			<dd>
-				13333333333
+				<span>13333333333</span>
 				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont">&#xe601;</i>
+				<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>
 			</dd>
 		</dl>
 	</div>
@@ -131,27 +132,30 @@
 	<div class="box-shell">
 		<div class="user-finger">
 			<img src="images/user-finger-on.gif" alt=""><br>
-			<div class="btn">指纹1</div><br>
-			<div class="btn btn-blue">重置</div>
-			<div class="btn btn-red">提交</div>
+			<input class="name" value="指纹"><br>
+			<button class="btn btn-blue" onclick="reset($('.user-finger .name'),'指纹')">重置</button>
+			<button class="btn btn-red" onclick="addRightList($(this))">提交</button>
 		</div>
 		<dl class="right-list">
 			<dt>已添加指纹</dt>
 			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
+				<span>指纹</span>
 				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont">&#xe601;</i>
+				<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>
 			</dd>
 			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
+				<span>指纹</span>
 				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont">&#xe601;</i>
+				<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>
 			</dd>
 			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
+				<span>指纹</span>
+				<i class="icon iconfont">&#xe60b;</i>
+				<i class="icon iconfont" onclick="delRightList($(this))">&#xe601;</i>
 				<img class="active" src="images/user-finger-img2.png" alt="">
-				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont">&#xe601;</i>
 			</dd>
 		</dl>
 	</div>

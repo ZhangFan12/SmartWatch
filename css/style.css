@@ -243,6 +243,13 @@ body {
     height: 50px;
     line-height: 50px;
     border-bottom: 1px solid #fff; }
+    .right-list dt span, .right-list dd span {
+      overflow: hidden;
+      display: inline-block;
+      width: 36%;
+      height: 50px;
+      line-height: 50px;
+      vertical-align: top; }
     .right-list dt i, .right-list dd i {
       float: right;
       margin: 0 5px;
@@ -252,8 +259,9 @@ body {
       margin: 5px 0;
       height: 40px; }
     .right-list dt .active, .right-list dd .active {
-      margin: 10px 0;
-      height: 30px; }
+      float: right;
+      margin: 15px 5px 15px 0;
+      height: 20px; }
   .right-list dt {
     height: 40px;
     line-height: 40px; }
@@ -432,6 +440,7 @@ body {
       display: inline-block;
       float: left;
       box-sizing: border-box;
+      padding: 0 1em;
       width: 60%;
       height: 50px;
       line-height: 50px;
@@ -454,6 +463,17 @@ body {
   text-align: center; }
   .user-finger img {
     height: 70%; }
+  .user-finger .name {
+    outline: none;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 1.2em 1em 0 1em;
+    padding: 10px 3em;
+    width: 30%;
+    text-align: center;
+    border: 1px solid #525252;
+    border-radius: 5px;
+    background-color: #fff; }
   .user-finger .btn {
     display: inline-block;
     margin: 1.2em 1em 0 1em; }

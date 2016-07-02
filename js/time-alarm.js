@@ -27,7 +27,7 @@ function alarmList() {
 		$('.time-alarm').animate({width:'100%'});
 		$('.alarm-list').fadeOut();
 	}else {
-		$('.time-alarm').animate({width:'73%'});
+		$('.time-alarm').animate({width:'72%'});
 		$('.alarm-list').fadeIn();
 	}
 }
@@ -88,7 +88,7 @@ function setupTimeClose(){
 	if ($('.alarm-list li').length == 0) {
 		$('.time-alarm').animate({width:'100%'});
 	}else {
-		$('.time-alarm').animate({width:'73%'});
+		$('.time-alarm').animate({width:'72%'});
 		$('.alarm-list').fadeIn();
 	}
 };
@@ -103,7 +103,7 @@ function setupTimeSave(){
 	if ($('.alarm-list li').length == 0) {
 		$('.time-alarm').animate({width:'100%'});
 	}else {
-		$('.time-alarm').animate({width:'73%'});
+		$('.time-alarm').animate({width:'72%'});
 		$('.alarm-list').fadeIn();
 	}
 
