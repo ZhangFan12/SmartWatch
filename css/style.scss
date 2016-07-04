@@ -169,11 +169,15 @@ body {
 			margin: 5px 0;
 			height: 40px;
 		}
-		.active {
+		.active-img {
+			display: none;
 			float: right;
 			margin: 15px 5px 15px 0;
 			height: 20px;
 		}
+	}
+	.active .active-img {
+		display: inline-block;
 	}
 	dt {
 		height: 40px;

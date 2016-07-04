@@ -258,10 +258,13 @@ body {
     .right-list dt .logo, .right-list dd .logo {
       margin: 5px 0;
       height: 40px; }
-    .right-list dt .active, .right-list dd .active {
+    .right-list dt .active-img, .right-list dd .active-img {
+      display: none;
       float: right;
       margin: 15px 5px 15px 0;
       height: 20px; }
+  .right-list .active .active-img {
+    display: inline-block; }
   .right-list dt {
     height: 40px;
     line-height: 40px; }

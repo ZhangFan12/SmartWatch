@@ -79,7 +79,7 @@ function reset(object,value) {
 	console.log(object.attr('value'));
 	object.val(value);
 }
-//判断右侧列表是否有值
+//判断右侧列表是否隐藏显示
 function rightList(num,value) {
 	console.log(num + ',' + value)
 	if (value == 0) {
@@ -126,17 +126,18 @@ function addRightList(object) {
 			alert('电话号码格式错误')
 			return
 		}
+		$('#check_phone').val("");//清空input值
 
 		$(addFamliyNumHtml).appendTo(addList);//渲染
 
 	    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
-	    rightList(0,length);
+	    rightList(0,length);//判断右侧列表是否隐藏显示
 	} else if (object.parents('.user-finger').length == 1) {
-		
+
 		$(addFingerHtml).appendTo(addList);//渲染
 
 	    var length = $('.content:eq(1) .box-shell:eq(1) dd').length;
-	    rightList(1,length);
+	    rightList(1,length);//判断右侧列表是否隐藏显示
 	}
 }
 //删除亲情号码&用户指纹
