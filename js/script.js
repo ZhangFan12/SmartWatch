@@ -28,6 +28,11 @@ function topNav(object) {
 		$('.aside-nav:eq(' + num + ') li:eq(0)').addClass('active');
 		$('.content:eq(' + num + ') .box-shell').css('display','none');
 		$('.content:eq(' + num + ') .box-shell:eq(0)').css('display','block');
+
+		if ($('.content:eq(0)').css('background-color') != '#fff') {
+			//还原背景颜色
+			$('.content').css('background-color', '#fff');
+		}
 	});
 }
 
@@ -95,6 +100,7 @@ function rightList(num,value) {
 }
 //添加亲情号码&用户指纹
 function addRightList(object) {
+
 	var famliyNumValue = $('.famliy-num input').val();
 	addFamliyNumHtml = '<dd>' +
 		'<span>' + famliyNumValue + '</span>' +
@@ -113,12 +119,21 @@ function addRightList(object) {
 	var addList = object.parents('.box-shell').children('.right-list')
 
 	if (object.parents('.famliy-num').length == 1) {
-		$(addFamliyNumHtml).appendTo(addList);
+
+		//验证电话号码
+		var x = new checkObject();
+		if (x.checkMobile($('#check_phone')) == 0) {
+			alert('电话号码格式错误')
+			return
+		}
+
+		$(addFamliyNumHtml).appendTo(addList);//渲染
 
 	    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
 	    rightList(0,length);
 	} else if (object.parents('.user-finger').length == 1) {
-		$(addFingerHtml).appendTo(addList);
+		
+		$(addFingerHtml).appendTo(addList);//渲染
 
 	    var length = $('.content:eq(1) .box-shell:eq(1) dd').length;
 	    rightList(1,length);
@@ -133,5 +148,19 @@ function delRightList(object,num) {
 	    rightList(num,length);
 	}else{
 		return
+	}
+}
+
+//验证
+var checkObject = function() {
+    var regBox = {
+        // regEmail : /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,//邮箱
+        // regName : /^[a-z0-9_-]{3,16}$/,//用户名
+        regMobile : /^0?1[3|4|5|8][0-9]\d{8}$/,//手机
+        // regTel : /^0[\d]{2,3}-[\d]{7,8}$/
+    }
+	this.checkMobile = function(id) {
+    	var mflag = regBox.regMobile.test(id.val());
+		if (!mflag) {return 0}else {return 1}//正确返回值1，错误返回值0
 	}
 }
