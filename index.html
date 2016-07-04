@@ -43,10 +43,10 @@
 				<li><a>周一</a></li>
 				<li class="active"><a>周二</a></li>
 				<li class="active"><a>周三</a></li>
-				<li><a>周一</a></li>
-				<li><a>周一</a></li>
-				<li><a>周一</a></li>
-				<li><a>周一</a></li>
+				<li><a>周四</a></li>
+				<li><a>周五</a></li>
+				<li><a>周六</a></li>
+				<li><a>周日</a></li>
 			</ul>
 			<button class="btn btn-time" onclick="addAlarm()">添加闹钟</button>
 		</div>
@@ -117,7 +117,7 @@
 			</dd>
 			<dd class="active">
 				<span>13333333333</span>
-				<i class="icon iconfont">&#xe60b;</i>
+				<i class="icon iconfont" onclick="modifyRightList($(this),0)">&#xe60b;</i>
 				<i class="icon iconfont" onclick="delRightList($(this),0)">&#xe601;</i>
 				<img class="active-img" src="images/user-finger-img2.png" alt="">
 			</dd>
@@ -134,19 +134,15 @@
 		</div>
 		<dl class="right-list">
 			<dt>已添加指纹</dt>
-			<dd class="active">
+			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
 				<span>指纹</span>
-				<i class="icon iconfont">&#xe60b;</i>
 				<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>
-				<img class="active-img" src="images/user-finger-img2.png" alt="">
 			</dd>
 			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
 				<span>指纹</span>
-				<i class="icon iconfont">&#xe60b;</i>
 				<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>
-				<img class="active-img" src="images/user-finger-img2.png" alt="">
 			</dd>
 		</dl>
 	</div>

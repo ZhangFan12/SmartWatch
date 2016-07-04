@@ -417,19 +417,24 @@ body {
     .shed-warn .text p {
       line-height: 1.6em; }
 
-.famliy-num {
+.famliy-num,
+.famliy-num-modify {
   position: absolute;
   top: 34%;
   left: 16%;
   width: 40%;
   text-align: left; }
-  .famliy-num .title {
+  .famliy-num .title,
+  .famliy-num-modify .title {
     font-size: 1.2em; }
-  .famliy-num .body {
+  .famliy-num .body,
+  .famliy-num-modify .body {
     margin-top: 1em;
     width: 100%; }
     .famliy-num .body label,
-    .famliy-num .body button {
+    .famliy-num .body button,
+    .famliy-num-modify .body label,
+    .famliy-num-modify .body button {
       display: inline-block;
       float: left;
       width: 20%;
@@ -439,7 +444,8 @@ body {
       line-height: 50px;
       border-radius: 5px 0 0 5px;
       background-color: #2c81ba; }
-    .famliy-num .body input {
+    .famliy-num .body input,
+    .famliy-num-modify .body input {
       display: inline-block;
       float: left;
       box-sizing: border-box;
@@ -450,12 +456,18 @@ body {
       border: 1px solid #e0e0e0;
       border-left: 0;
       border-right: 0; }
-    .famliy-num .body button {
+    .famliy-num .body button,
+    .famliy-num-modify .body button {
       border: 0;
       border-radius: 0 5px 5px 0;
       background-color: #e74c3c; }
-    .famliy-num .body i {
+    .famliy-num .body i,
+    .famliy-num-modify .body i {
       font-size: 2em; }
+
+.famliy-num-modify {
+  display: none;
+  left: 44%; }
 
 .user-finger {
   position: absolute;

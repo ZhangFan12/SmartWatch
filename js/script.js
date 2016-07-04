@@ -79,25 +79,7 @@ function reset(object,value) {
 	console.log(object.attr('value'));
 	object.val(value);
 }
-//判断右侧列表是否隐藏显示
-function rightList(num,value) {
-	console.log(num + ',' + value)
-	if (value == 0) {
-		$('.right-list').fadeOut();
-		if (num == 0) {
-			$('.famliy-num').animate({width:'68%'});
-		}else if (num == 1) {
-			$('.user-finger').animate({width:'93%'});
-		}
-	}else {
-		$('.right-list').fadeIn();
-		if (num == 0) {
-			$('.famliy-num').animate({width:'40%'});
-		}else if (num == 1) {
-			$('.user-finger').animate({width:'70%'});
-		}
-	}
-}
+
 //添加亲情号码&用户指纹
 function addRightList(object) {
 
@@ -110,16 +92,14 @@ function addRightList(object) {
 
 	var fingerValue = $('.user-finger input').val();
 	addFingerHtml = '<dd>' +
-		'<img class="logo" src="images/user-finger-img1.png" alt="">' +
+		'<img class="logo" src="images/user-finger-img1.png" alt=""> ' +
 		'<span>' + fingerValue + '</span>' +
-		'<i class="icon iconfont">&#xe60b;</i>' +
 		'<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>' +
 	'</dd>';
 
 	var addList = object.parents('.box-shell').children('.right-list')
 
 	if (object.parents('.famliy-num').length == 1) {
-
 		//验证电话号码
 		var x = new checkObject();
 		if (x.checkMobile($('#check_phone')) == 0) {
@@ -127,17 +107,47 @@ function addRightList(object) {
 			return
 		}
 		$('#check_phone').val("");//清空input值
-
 		$(addFamliyNumHtml).appendTo(addList);//渲染
-
 	    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
 	    rightList(0,length);//判断右侧列表是否隐藏显示
 	} else if (object.parents('.user-finger').length == 1) {
-
 		$(addFingerHtml).appendTo(addList);//渲染
-
 	    var length = $('.content:eq(1) .box-shell:eq(1) dd').length;
 	    rightList(1,length);//判断右侧列表是否隐藏显示
+	}
+}
+//修改亲情号码
+function modifyRightList(object,num) {
+	var mobileValue = object.prev().html();
+	var addFamliyNumHtml = '<div class="famliy-num-modify" style="display:none">' +
+			'<div class="title">修改亲情号码：</div>' +
+			'<div class="body">' +
+				'<label><i class="icon iconfont">&#xe608;</i></label>	' +
+				'<input id="check_modify_phone" type="text" value="'+ mobileValue +'"></input>' +
+				'<button><i class="icon iconfont" onclick="saveRightList($(this),0)">&#xe60b;</i></button>' +
+			'</div>' +
+		'</div>' ;
+
+	$('.famliy-num').css('display', 'none');
+	$('.right-list').animate({right:'70%'});
+	$(addFamliyNumHtml).appendTo(object.parents('.box-shell'));
+	setTimeout(function(){$('.famliy-num-modify').fadeIn();},400);
+}
+//保存已修改内容
+function saveRightList(object,num) {
+	this.anima = function(id,modifyId) {
+		id.css('display', 'block');
+		$('.right-list').animate({right:'0'});
+		modifyId.remove();
+	}
+	if (num == 0) {
+		//验证电话号码
+		var x = new checkObject();
+		if (x.checkMobile($('#check_modify_phone')) == 0) {
+			alert('电话号码格式错误')
+			return
+		}
+		this.anima($('.famliy-num'),$('.famliy-num-modify'));
 	}
 }
 //删除亲情号码&用户指纹
@@ -151,7 +161,27 @@ function delRightList(object,num) {
 		return
 	}
 }
-
+//判断右侧列表是否隐藏显示
+function rightList(num,value) {
+	console.log(num + ',' + value)
+	if (value == 0) {
+		if (num == 0) {
+			$('.right-list:eq(0)').fadeOut();
+			$('.famliy-num').animate({width:'68%'});
+		}else if (num == 1) {
+			$('.right-list:eq(1)').fadeOut();
+			$('.user-finger').animate({width:'93%'});
+		}
+	}else {
+		if (num == 0) {
+			$('.right-list:eq(0)').fadeIn();
+			$('.famliy-num').animate({width:'40%'});
+		}else if (num == 1) {
+			$('.right-list:eq(1)').fadeIn();
+			$('.user-finger').animate({width:'70%'});
+		}
+	}
+}
 //验证
 var checkObject = function() {
     var regBox = {

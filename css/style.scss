@@ -366,7 +366,8 @@ body {
 	}
 }
 //亲情号码
-.famliy-num {
+.famliy-num,
+.famliy-num-modify {
 	position: absolute;
 	top: 34%;
 	left: 16%;
@@ -411,6 +412,10 @@ body {
     		font-size: 2em;
     	}
     }
+}
+.famliy-num-modify {
+	display: none;
+    left: 44%;
 }
 //用户指纹
 .user-finger {
