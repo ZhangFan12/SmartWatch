@@ -269,7 +269,8 @@ body {
     height: 40px;
     line-height: 40px; }
 
-.time-alarm {
+.time-alarm,
+.time-alarm-modify {
   overflow-y: auto;
   display: inline-block;
   float: left;
@@ -277,37 +278,46 @@ body {
   height: 100%;
   color: #24557b;
   text-align: center; }
-  .time-alarm .real-time-display {
+  .time-alarm .real-time-display,
+  .time-alarm-modify .real-time-display {
     position: relative;
     height: 65%;
     min-height: 255px; }
-    .time-alarm .real-time-display .bg {
+    .time-alarm .real-time-display .bg,
+    .time-alarm-modify .real-time-display .bg {
       height: 100%;
       -webkit-transform: rotate(0deg);
       -ms-transform: rotate(0deg);
       -o-transform: rotate(0deg);
       transform: rotate(0deg); }
-    .time-alarm .real-time-display .time-text {
+    .time-alarm .real-time-display .time-text,
+    .time-alarm-modify .real-time-display .time-text {
       position: absolute;
       top: calc(50% - 35px);
       width: 100%; }
-      .time-alarm .real-time-display .time-text .icon {
+      .time-alarm .real-time-display .time-text .icon,
+      .time-alarm-modify .real-time-display .time-text .icon {
         cursor: pointer;
         font-size: 70px;
         letter-spacing: 4px; }
-  .time-alarm .real-time-title {
+  .time-alarm .real-time-title,
+  .time-alarm-modify .real-time-title {
     padding: 10px;
     font-size: 1em; }
-  .time-alarm .real-time-hr {
+  .time-alarm .real-time-hr,
+  .time-alarm-modify .real-time-hr {
     border-bottom: 1px solid #2c81ba; }
-  .time-alarm .week-nav {
+  .time-alarm .week-nav,
+  .time-alarm-modify .week-nav {
     padding: 5px 0 15px 0;
     height: 11.5%;
     min-height: 45px; }
-    .time-alarm .week-nav li {
+    .time-alarm .week-nav li,
+    .time-alarm-modify .week-nav li {
       float: left;
       width: 14.2%; }
-      .time-alarm .week-nav li a {
+      .time-alarm .week-nav li a,
+      .time-alarm-modify .week-nav li a {
         cursor: pointer;
         box-sizing: border-box;
         display: inline-block;
@@ -315,9 +325,15 @@ body {
         width: 45px;
         height: 45px;
         font-size: 1em; }
-    .time-alarm .week-nav .active a {
+    .time-alarm .week-nav .active a,
+    .time-alarm-modify .week-nav .active a {
       border: 1px solid #24557b;
       border-radius: 45px; }
+
+.time-alarm-modify {
+  display: none;
+  float: right;
+  width: 70%; }
 
 .alarm-list {
   overflow-y: auto;

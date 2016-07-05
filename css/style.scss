@@ -185,7 +185,8 @@ body {
 	}
 }
 //时间闹钟
-.time-alarm {
+.time-alarm,
+.time-alarm-modify {
 	overflow-y :auto;
 	display: inline-block;
 	float: left;
@@ -248,6 +249,11 @@ body {
 			}
 		}
 	}
+}
+.time-alarm-modify {
+	display: none;
+	float: right;
+    width: 70%;
 }
 .alarm-list {
 	overflow-y :auto;
