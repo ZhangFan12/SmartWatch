@@ -104,21 +104,21 @@
 			<div class="body">
 				<label><i class="icon iconfont">&#xe608;</i></label>	
 				<input id="check_phone" type="text"></input>
-				<button><i class="icon iconfont" onclick="addRightList($(this))">&#xe60e;</i></button>	
+				<button><i class="icon iconfont" onclick="RightList.add($(this))">&#xe60e;</i></button>	
 			</div>
 		</div>
 		<dl class="right-list">
 			<dt>已添加亲情号码</dt>
 			<dd>
 				<span>13333333333</span>
-				<i class="icon iconfont">&#xe60b;</i>
-				<i class="icon iconfont" onclick="delRightList($(this),0)">&#xe601;</i>
+				<i class="icon iconfont" onclick="RightList.modify($(this),0)">&#xe60b;</i>
+				<i class="icon iconfont" onclick="RightList.del($(this),0)">&#xe601;</i>
 				<img class="active-img" src="images/user-finger-img2.png" alt="">
 			</dd>
 			<dd class="active">
 				<span>13333333333</span>
-				<i class="icon iconfont" onclick="modifyRightList($(this),0)">&#xe60b;</i>
-				<i class="icon iconfont" onclick="delRightList($(this),0)">&#xe601;</i>
+				<i class="icon iconfont" onclick="RightList.modify($(this),0)">&#xe60b;</i>
+				<i class="icon iconfont" onclick="RightList.del($(this),0)">&#xe601;</i>
 				<img class="active-img" src="images/user-finger-img2.png" alt="">
 			</dd>
 		</dl>
@@ -129,20 +129,20 @@
 		<div class="user-finger">
 			<img src="images/user-finger-on.gif" alt=""><br>
 			<input class="name" value="指纹"><br>
-			<button class="btn btn-blue" onclick="reset($('.user-finger .name'),'指纹')">重置</button>
-			<button class="btn btn-red" onclick="addRightList($(this))">提交</button>
+			<button class="btn btn-blue" onclick="Btn.resetBtn($('.user-finger .name'),'指纹')">重置</button>
+			<button class="btn btn-red" onclick="RightList.add($(this))">提交</button>
 		</div>
 		<dl class="right-list">
 			<dt>已添加指纹</dt>
 			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
 				<span>指纹</span>
-				<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>
+				<i class="icon iconfont" onclick="RightList.del($(this),1)">&#xe601;</i>
 			</dd>
 			<dd>
 				<img class="logo" src="images/user-finger-img1.png" alt="">
 				<span>指纹</span>
-				<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>
+				<i class="icon iconfont" onclick="RightList.del($(this),1)">&#xe601;</i>
 			</dd>
 		</dl>
 	</div>

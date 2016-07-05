@@ -75,163 +75,166 @@ var Active = {
 		});
 	}
 }
-//icon-btn按钮
-var IconBtn = {
-	//icon-btn按钮初始化
-	iconBtnInit : function (object) {
-		object.html('<span></span><i></i>');
-		object.each(function() {
-			if ($(this).attr('value') == '0') {
-				$(this).find('span').css({'background-color': '#eaeaea'});
-				$(this).find('i').css({'right':'36px'});
-			}
-		});
+//按钮
+var Btn = {
+	resetBtn : function(object,value) {
+		object.val(value);
 	},
-	//icon-btn按钮点击切换
-	iconBtnClick : function (object) {
-		if ($(object).attr('value') == '1') {
-			$(object).attr('value','0');
-			$(object).find('span').css({
-				'animation': 'icon-btn-off 0.5s',
-				'background-color': '#eaeaea'
+	iconBtn : {
+		//icon-btn按钮初始化
+		iconBtnInit : function (object) {
+			object.html('<span></span><i></i>');
+			object.each(function() {
+				if ($(this).attr('value') == '0') {
+					$(this).find('span').css({'background-color': '#eaeaea'});
+					$(this).find('i').css({'right':'36px'});
+				}
 			});
-			$(object).find('i').animate({right:'36px'},'fast');
-		} else if($(object).attr('value') == '0') {
-			$(object).attr('value','1');
-			$(object).find('span').css({
-				'animation': 'icon-btn-on 0.5s',
-				'background-color': '#f39c12'
-			});
-			$(object).find('i').animate({right:'0'},'fast');
+		},
+		//icon-btn按钮点击切换
+		iconBtnClick : function (object) {
+			if ($(object).attr('value') == '1') {
+				$(object).attr('value','0');
+				$(object).find('span').css({
+					'animation': 'icon-btn-off 0.5s',
+					'background-color': '#eaeaea'
+				});
+				$(object).find('i').animate({right:'36px'},'fast');
+			} else if($(object).attr('value') == '0') {
+				$(object).attr('value','1');
+				$(object).find('span').css({
+					'animation': 'icon-btn-on 0.5s',
+					'background-color': '#f39c12'
+				});
+				$(object).find('i').animate({right:'0'},'fast');
+			}
 		}
 	}
-}
-//重置按钮
-function reset(object,value) {
-	object.val(value);
 }
 //验证
-var checkObject = function() {
-    var regBox = {
-        // regEmail : /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,//邮箱
-        // regName : /^[a-z0-9_-]{3,16}$/,//用户名
-        regMobile : /^0?1[3|4|5|8][0-9]\d{8}$/,//手机
-        // regTel : /^0[\d]{2,3}-[\d]{7,8}$/
-    }
-	this.checkMobile = function(id) {
-    	var mflag = regBox.regMobile.test(id.val());
+var Check = {
+    //手机
+	checkMobile : function(id) {
+		var regMobile = /^0?1[3|4|5|8][0-9]\d{8}$/;
+    	var mflag = regMobile.test(id.val());
 		if (!mflag) {return 0}else {return 1}//正确返回值1，错误返回值0
 	}
+	// var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/; //邮箱
+	// var regName = /^[a-z0-9_-]{3,16}$/; //用户名
+	// var regTel = /^0[\d]{2,3}-[\d]{7,8}$/;//电话
 }
-//取2位整数
-function num2(Value) {
-	if (Value.toString().length == 1) {
-		Value = '0' + Value;
-		return Value;
-	}else {
-		Value = '' + Value;
-		return Value;
+//碎片
+var fragment = {
+	//取2位整数
+	num2 : function (Value) {
+		if (Value.toString().length == 1) {
+			Value = '0' + Value;
+			return Value;
+		}else {
+			Value = '' + Value;
+			return Value;
+		}
 	}
 }
-//添加亲情号码&用户指纹
-function addRightList(object) {
+//右侧列表
+var RightList = {
+	//添加
+	add : function (object) {
 
-	var famliyNumValue = $('.famliy-num input').val();
-	addFamliyNumHtml = '<dd>' +
-		'<span>' + famliyNumValue + '</span>' +
-		'<i class="icon iconfont">&#xe60b;</i>' +
-		'<i class="icon iconfont" onclick="delRightList($(this),0)">&#xe601;</i>' +
-	'</dd>';
+		var famliyNumValue = $('.famliy-num input').val();
+		addFamliyNumHtml = '<dd>' +
+			'<span>' + famliyNumValue + '</span>' +
+			'<i class="icon iconfont" onclick="RightList.modify($(this),0)">&#xe60b;</i>' +
+			'<i class="icon iconfont" onclick="RightList.del($(this),0)">&#xe601;</i>' +
+		'</dd>';
 
-	var fingerValue = $('.user-finger input').val();
-	addFingerHtml = '<dd>' +
-		'<img class="logo" src="images/user-finger-img1.png" alt=""> ' +
-		'<span>' + fingerValue + '</span>' +
-		'<i class="icon iconfont" onclick="delRightList($(this),1)">&#xe601;</i>' +
-	'</dd>';
+		var fingerValue = $('.user-finger input').val();
+		addFingerHtml = '<dd>' +
+			'<img class="logo" src="images/user-finger-img1.png" alt=""> ' +
+			'<span>' + fingerValue + '</span>' +
+			'<i class="icon iconfont" onclick="RightList.del($(this),1)">&#xe601;</i>' +
+		'</dd>';
 
-	var addList = object.parents('.box-shell').children('.right-list')
+		var addList = object.parents('.box-shell').children('.right-list')
 
-	if (object.parents('.famliy-num').length == 1) {
-		//验证电话号码
-		var x = new checkObject();
-		if (x.checkMobile($('#check_phone')) == 0) {
-			alert('电话号码格式错误')
+		if (object.parents('.famliy-num').length == 1) {
+			//验证电话号码
+			if (Check.checkMobile($('#check_phone')) == 0) {
+				alert('电话号码格式错误')
+				return
+			}
+			$('#check_phone').val("");//清空input值
+			$(addFamliyNumHtml).appendTo(addList);//渲染
+		    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
+		    RightList.rightListDisplay(0,length);//判断右侧列表是否隐藏显示
+		} else if (object.parents('.user-finger').length == 1) {
+			$(addFingerHtml).appendTo(addList);//渲染
+		    var length = $('.content:eq(1) .box-shell:eq(1) dd').length;
+		    RightList.rightListDisplay(1,length);//判断右侧列表是否隐藏显示
+		}
+	},
+	//修改
+	modify : function (object,num) {
+		var mobileValue = object.prev().html();
+		var addFamliyNumHtml = '<div class="famliy-num-modify" style="display:none">' +
+				'<div class="title">修改亲情号码：</div>' +
+				'<div class="body">' +
+					'<label><i class="icon iconfont">&#xe608;</i></label>	' +
+					'<input id="check_modify_phone" type="text" value="'+ mobileValue +'"></input>' +
+					'<button><i class="icon iconfont" onclick="RightList.save($(this),0)">&#xe60b;</i></button>' +
+				'</div>' +
+			'</div>' ;
+
+		$('.famliy-num').css('display', 'none');
+		$('.right-list').animate({right:'71%'});
+		$(addFamliyNumHtml).appendTo(object.parents('.box-shell'));
+		setTimeout(function(){$('.famliy-num-modify').fadeIn();},400);
+	},
+	//保存
+	save : function (object,num) {
+		this.anima = function(id,modifyId) {
+			id.css('display', 'block');
+			$('.right-list').animate({right:'0'});
+			modifyId.remove();
+		}
+		if (num == 0) {
+			//验证电话号码
+			if (Check.checkMobile($('#check_modify_phone')) == 0) {
+				alert('电话号码格式错误')
+				return
+			}
+			this.anima($('.famliy-num'),$('.famliy-num-modify'));
+		}
+	},
+	//删除
+	del : function (object,num) {
+		var r=confirm("确认删除用户指纹吗？");
+		if (r==true){
+		    object.parents('dd').remove();
+		    var length = $('.content:eq(1) .box-shell:eq(' + num + ') dd').length;
+		    RightList.rightListDisplay(num,length);
+		}else{
 			return
 		}
-		$('#check_phone').val("");//清空input值
-		$(addFamliyNumHtml).appendTo(addList);//渲染
-	    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
-	    rightList(0,length);//判断右侧列表是否隐藏显示
-	} else if (object.parents('.user-finger').length == 1) {
-		$(addFingerHtml).appendTo(addList);//渲染
-	    var length = $('.content:eq(1) .box-shell:eq(1) dd').length;
-	    rightList(1,length);//判断右侧列表是否隐藏显示
-	}
-}
-//修改亲情号码
-function modifyRightList(object,num) {
-	var mobileValue = object.prev().html();
-	var addFamliyNumHtml = '<div class="famliy-num-modify" style="display:none">' +
-			'<div class="title">修改亲情号码：</div>' +
-			'<div class="body">' +
-				'<label><i class="icon iconfont">&#xe608;</i></label>	' +
-				'<input id="check_modify_phone" type="text" value="'+ mobileValue +'"></input>' +
-				'<button><i class="icon iconfont" onclick="saveRightList($(this),0)">&#xe60b;</i></button>' +
-			'</div>' +
-		'</div>' ;
-
-	$('.famliy-num').css('display', 'none');
-	$('.right-list').animate({right:'71%'});
-	$(addFamliyNumHtml).appendTo(object.parents('.box-shell'));
-	setTimeout(function(){$('.famliy-num-modify').fadeIn();},400);
-}
-//保存已修改内容
-function saveRightList(object,num) {
-	this.anima = function(id,modifyId) {
-		id.css('display', 'block');
-		$('.right-list').animate({right:'0'});
-		modifyId.remove();
-	}
-	if (num == 0) {
-		//验证电话号码
-		var x = new checkObject();
-		if (x.checkMobile($('#check_modify_phone')) == 0) {
-			alert('电话号码格式错误')
-			return
-		}
-		this.anima($('.famliy-num'),$('.famliy-num-modify'));
-	}
-}
-//删除亲情号码&用户指纹
-function delRightList(object,num) {
-	var r=confirm("确认删除用户指纹吗？");
-	if (r==true){
-	    object.parents('dd').remove();
-	    var length = $('.content:eq(1) .box-shell:eq(' + num + ') dd').length;
-	    rightList(num,length);
-	}else{
-		return
-	}
-}
-//判断右侧列表是否隐藏显示
-function rightList(num,value) {
-	console.log(num + ',' + value)
-	if (value == 0) {
-		if (num == 0) {
-			$('.right-list:eq(0)').fadeOut();
-			$('.famliy-num').animate({width:'68%'});
-		}else if (num == 1) {
-			$('.right-list:eq(1)').fadeOut();
-			$('.user-finger').animate({width:'93%'});
-		}
-	}else {
-		if (num == 0) {
-			$('.right-list:eq(0)').fadeIn();
-			$('.famliy-num').animate({width:'40%'});
-		}else if (num == 1) {
-			$('.right-list:eq(1)').fadeIn();
-			$('.user-finger').animate({width:'70%'});
+	},
+	//判断右侧列表是否隐藏显示
+	rightListDisplay : function (num,value) {
+		if (value == 0) {
+			if (num == 0) {
+				$('.right-list:eq(0)').fadeOut();
+				$('.famliy-num').animate({width:'68%'});
+			}else if (num == 1) {
+				$('.right-list:eq(1)').fadeOut();
+				$('.user-finger').animate({width:'93%'});
+			}
+		}else {
+			if (num == 0) {
+				$('.right-list:eq(0)').fadeIn();
+				$('.famliy-num').animate({width:'40%'});
+			}else if (num == 1) {
+				$('.right-list:eq(1)').fadeIn();
+				$('.user-finger').animate({width:'70%'});
+			}
 		}
 	}
 }
@@ -245,7 +248,7 @@ function RealTime() {
 	}
 	
 	this.timeHtml = function(hours,minutes) {
-		$('#real_time .icon').html(num2(hours) + ':' + num2(minutes));
+		$('#real_time .icon').html(fragment.num2(hours) + ':' + fragment.num2(minutes));
 	}
 
 	this.angleLoop = function() {
@@ -265,11 +268,11 @@ function addAlarm() {
 			'<span class="title">闹钟' + (num + 1) + '</span>' +
 			'<span class="state">自定义</span>' +
 			'<span class="time-btn" onclick="modifyAlarm($(this))">' + alarmTime +'</span>' +
-			'<span class="icon-btn" onclick="IconBtn.iconBtnClick(this)" value="1"></span>' +
+			'<span class="icon-btn" onclick="Btn.iconBtn.iconBtnClick(this)" value="1"></span>' +
 		'</li>';
 	$(addAlarmHtml).appendTo('.alarm-list');//渲染
 
-	IconBtn.iconBtnInit($('.icon-btn'));//初始化闹钟开关
+	Btn.iconBtn.iconBtnInit($('.icon-btn'));//初始化闹钟开关
 	alarmList();//判断是否显示列表
 	delAlarm($('.alarm-list .time-btn:eq(' + num + ')'));
 }
@@ -398,12 +401,12 @@ var setupTimeWindow = function(){
 		var hoursHtml = '';
 
 		for (var i = 1; i <= hoursNum; i++) {
-			hoursHtml = hoursHtml + '<li>' + num2(i) + '<span>时</span></li>';
+			hoursHtml = hoursHtml + '<li>' + fragment.num2(i) + '<span>时</span></li>';
 		};
 
 		var minutesHtml = '';
 		for (var i = 0; i <= minutesNum-1; i++) {
-			minutesHtml = minutesHtml + '<li>' + num2(i) + '<span>分</span></li>';
+			minutesHtml = minutesHtml + '<li>' + fragment.num2(i) + '<span>分</span></li>';
 		};
 
 		var windowHtml = '<div id="setup-time-window">' +
@@ -460,7 +463,7 @@ var setupTimeWindow = function(){
 			var y = -x/liHeight+3;
 			return y
 		}
-		var text = num2(timeValue(h)) + ':' + num2((timeValue(m)-1));//取2位整数
+		var text = fragment.num2(timeValue(h)) + ':' + fragment.num2((timeValue(m)-1));//取2位整数
 
 		$('#setup-time-window').remove();
 		return text
