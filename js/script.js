@@ -1,7 +1,7 @@
 $(function (){
 	RealTime();//获取系统时间显示
 	alarmList();//判断是否显示列表
-	if ($('.alarm-list').css('display' == 'block')) {delAlarm('.alarm-list .time-btn');}//删除闹钟
+	if ($('.alarm-list').css('display') == 'block') {delAlarm('.alarm-list .time-btn')}//删除闹钟
 	weekNavActive($('.week-nav li'));//week-nav点击高亮
 
 	//初始化顶级导航和二级导航
