@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>智能腕表</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -35,7 +35,7 @@
 		<div class="time-alarm">
 			<div class="real-time-display" id="real_time">
 				<img class="bg" src="images/real-time-bg.png" alt="">
-				<div class="time-text"><span id="alarm_value" class="icon iconfont time-btn" onclick="setupTimeOpen($(this))">11:30</span></div>
+				<div class="time-text"><span id="alarm_value" class="icon iconfont time-btn" onclick="setupTime.open($(this))">11:30</span></div>
 			</div>
 			<div class="real-time-title">当前时间</div>
 			<hr class="real-time-hr">
@@ -48,7 +48,7 @@
 				<li><a>周六</a></li>
 				<li><a>周日</a></li>
 			</ul>
-			<button class="btn btn-time" onclick="addAlarm()">添加闹钟</button>
+			<button class="btn btn-time" onclick="Alarm.add()">添加闹钟</button>
 		</div>
 		<ul class="alarm-list">
 		</ul>

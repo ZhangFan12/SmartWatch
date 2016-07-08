@@ -1,6 +1,6 @@
 $(function (){
-	RealTime();//获取系统时间显示
-	alarmList();//判断是否显示列表
+	Alarm.realTime();//获取系统时间显示
+	Alarm.alarmListDisplay();//判断是否显示列表
 	if ($('.alarm-list').css('display') == 'block') {delAlarm('.alarm-list .time-btn')}//删除闹钟
 	Active.weekActive($('.week-nav li'));//week-nav点击高亮
 
@@ -51,6 +51,10 @@ var Nav = {
 			if (topNum == 0 && num == 2) {
 				//背景颜色设置
 				$('.content:eq(0)').css('background-color', '#21282b')
+			}
+			if (topNum == 1 && num == 0) {
+			    var length = $('.content:eq(1) .box-shell:eq(0) dd').length;
+			    RightList.rightListDisplay(0,length);//判断右侧列表是否隐藏显示
 			}
 		});
 	}
@@ -187,7 +191,10 @@ var RightList = {
 
 		$('.famliy-num').css('display', 'none');
 		$('.right-list').animate({right:'71%'});
-		$(addFamliyNumHtml).appendTo(object.parents('.box-shell'));
+
+		if ($('.famliy-num-modify').length != 1) {
+			$(addFamliyNumHtml).appendTo(object.parents('.box-shell'));
+		}
 		setTimeout(function(){$('.famliy-num-modify').fadeIn();},400);
 	},
 	//保存
@@ -238,158 +245,165 @@ var RightList = {
 		}
 	}
 }
-//获取系统时间显示
-function RealTime() {
+//闹钟
+var Alarm = {
+	//显示系统时间
+	realTime : function () {
+		var myDate = new Date();
+		var timeValue = {
+			hours: myDate.getHours(),
+			minutes: myDate.getMinutes(),
+		}
+		
+		this.timeHtml = function(hours,minutes) {
+			$('#real_time .icon').html(fragment.num2(hours) + ':' + fragment.num2(minutes));
+		}
 
-	var myDate = new Date();
-	var timeValue = {
-		hours: myDate.getHours(),
-		minutes: myDate.getMinutes(),
-	}
-	
-	this.timeHtml = function(hours,minutes) {
-		$('#real_time .icon').html(fragment.num2(hours) + ':' + fragment.num2(minutes));
-	}
+		this.angleLoop = function() {
+			var setTime = $('#real_time .icon:eq(0)').html().split(':');
+			var angle = (parseInt(setTime[0]*60) + parseInt(setTime[1]))/720*360
+			$('#real_time .bg').css('transform','rotate('+ angle +'deg)');
+		}
 
-	this.angleLoop = function() {
+		this.timeHtml(timeValue.hours,timeValue.minutes);
+		this.angleLoop();
+	},
+	//添加闹钟
+	add : function () {
+		var alarmTime = $('#alarm_value').html();
+		var num = $('.alarm-list li').length;
+		var addAlarmHtml = '<li>' +
+				'<span class="title">闹钟' + (num + 1) + '</span>' +
+				'<span class="state">自定义</span>' +
+				'<span class="time-btn" onclick="Alarm.modify($(this))">' + alarmTime +'</span>' +
+				'<span class="icon-btn" onclick="Btn.iconBtn.iconBtnClick(this)" value="1"></span>' +
+			'</li>';
+		$(addAlarmHtml).appendTo('.alarm-list');//渲染
+
+		Btn.iconBtn.iconBtnInit($('.icon-btn'));//初始化闹钟开关
+		Alarm.alarmListDisplay();//判断是否显示列表
+		Alarm.del($('.alarm-list .time-btn:eq(' + num + ')'));
+	},
+	//删除闹钟
+	del : function (id) {
+		touch.on(id, 'hold', function(ev){
+			var r=confirm("确认删除闹钟吗？");
+			if (r==true){
+			    this.parentNode.setAttribute('name','delete');
+			    $('.alarm-list li[name="delete"]').remove();
+				Alarm.alarmListDisplay();
+			}else{
+			    this.parentNode.removeAttribute("name");
+			}
+		});
+	},
+	//修改闹钟
+	modify : function (object) {
+		var alarmTime = object.html();
+		var addAlarmHtml = '<div class="time-alarm-modify">' +
+				'<div class="real-time-display" id="real_time">' +
+					'<img class="bg" src="images/real-time-bg.png" alt="">' +
+					'<div class="time-text"><span id="alarm_value" class="icon iconfont time-btn" onclick="setupTime.open($(this))">' + alarmTime + '</span></div>' +
+				'</div>' +
+				'<div class="real-time-title">当前时间</div>' +
+				'<hr class="real-time-hr">' +
+				'<ul class="week-nav clearfix">' +
+					'<li><a>周一</a></li>' +
+					'<li class="active"><a>周二</a></li>' +
+					'<li class="active"><a>周三</a></li>' +
+					'<li><a>周四</a></li>' +
+					'<li><a>周五</a></li>' +
+					'<li><a>周六</a></li>' +
+					'<li><a>周日</a></li>' +
+				'</ul>' +
+				'<button class="btn btn-time" onclick="Alarm.save($(this))">修改闹钟</button>' +
+			'</div>' ;
+
+		$('.time-alarm').css('display', 'none');
+		$('.alarm-list').animate({right:'71%'});
+		if ($('.time-alarm-modify').length != 1) {
+			$(addAlarmHtml).appendTo(object.parents('.box-shell'));
+		}
+		setTimeout(function(){$('.time-alarm-modify').fadeIn();},400);
+
+		Active.weekActive($('.week-nav li'));//week-nav点击高亮
+	},
+	//保存已修改闹钟
+	save : function (object) {
+		$('.alarm-list').animate({right:'0'});
+		$('.time-alarm-modify').remove();
+		setTimeout(function(){$('.time-alarm').fadeIn();},400);
+
+		Active.weekActive($('.week-nav li'));//week-nav点击高亮
+	},
+	//判断右侧列表是否隐藏显示
+	alarmListDisplay : function () {
+		if ($('.alarm-list li').length == 0) {
+			$('.time-alarm').animate({width:'100%'});
+			$('.alarm-list').fadeOut();
+		}else {
+			$('.time-alarm').animate({width:'72%'});
+			$('.alarm-list').fadeIn();
+		}
+	}
+}
+//时间设置窗口
+var setupTime = {
+	//打开
+	open : function(object) {
+		var timeArrays = object.html().split(':');
+		var hourValue = timeArrays[0];
+		var minuteValue = timeArrays[1];
+
+		var a = new setupTimeWindow();
+		a.openWindow(24,60,hourValue,minuteValue);//打开时间设置窗口
+
+		if ($('.time-alarm').css('display') == 'block') {
+			$('.time-alarm').animate({width:'69%'});
+		}else if ($('.time-alarm-modify').css('display') == 'block') {
+			$('.time-alarm-modify').animate({'margin-right':'31%','width':'69%'});
+		}
+		$('.alarm-list').fadeOut();
+	},	
+	//关闭
+	close : function() {
+		var a = new setupTimeWindow();
+		var b = $('.time-btn');
+		a.closeWindow();//关闭时间设置窗口
+
+		if ($('.time-alarm').css('display') == 'block') {
+			if ($('.alarm-list li').length == 0) {
+				$('.time-alarm').animate({width:'100%'});
+			}else {
+				$('.time-alarm').animate({width:'72%'});
+				$('.alarm-list').fadeIn();
+			}
+		}else if ($('.time-alarm-modify').css('display') == 'block') {
+			$('.time-alarm-modify').animate({'margin-right':'0','width':'70%'});
+			$('.alarm-list').fadeIn();
+		}
+	},
+	//保存
+	save : function() {
+		var a = new setupTimeWindow();
+
+		if ($('.time-alarm').css('display') == 'block') {
+			$('.time-alarm .time-btn').html(a.save());//保存时间设置窗口
+			if ($('.alarm-list li').length == 0) {
+				$('.time-alarm').animate({width:'100%'});
+			}else {
+				$('.time-alarm').animate({width:'72%'});
+				$('.alarm-list').fadeIn();
+			}
+		}else if ($('.time-alarm-modify').css('display') == 'block') {
+			$('.time-alarm-modify .time-btn').html(a.save());//保存时间设置窗口
+			$('.time-alarm-modify').animate({'margin-right':'0','width':'70%'});
+			$('.alarm-list').fadeIn();
+		}
+
 		var setTime = $('#real_time .icon:eq(0)').html().split(':');
 		var angle = (parseInt(setTime[0]*60) + parseInt(setTime[1]))/720*360
 		$('#real_time .bg').css('transform','rotate('+ angle +'deg)');
-	}
-
-	this.timeHtml(timeValue.hours,timeValue.minutes);
-	this.angleLoop();
-}
-//添加闹钟
-function addAlarm() {
-	var alarmTime = $('#alarm_value').html();
-	var num = $('.alarm-list li').length;
-	var addAlarmHtml = '<li>' +
-			'<span class="title">闹钟' + (num + 1) + '</span>' +
-			'<span class="state">自定义</span>' +
-			'<span class="time-btn" onclick="modifyAlarm($(this))">' + alarmTime +'</span>' +
-			'<span class="icon-btn" onclick="Btn.iconBtn.iconBtnClick(this)" value="1"></span>' +
-		'</li>';
-	$(addAlarmHtml).appendTo('.alarm-list');//渲染
-
-	Btn.iconBtn.iconBtnInit($('.icon-btn'));//初始化闹钟开关
-	alarmList();//判断是否显示列表
-	delAlarm($('.alarm-list .time-btn:eq(' + num + ')'));
-}
-//删除闹钟
-function delAlarm(id) {
-	touch.on(id, 'hold', function(ev){
-		var r=confirm("确认删除闹钟吗？");
-		if (r==true){
-		    this.parentNode.setAttribute('name','delete');
-		    $('.alarm-list li[name="delete"]').remove();
-			alarmList();
-		}else{
-		    this.parentNode.removeAttribute("name");
-		}
-	});
-}
-//修改闹钟
-function modifyAlarm(object) {
-	var alarmTime = object.html();
-	var addAlarmHtml = '<div class="time-alarm-modify">' +
-			'<div class="real-time-display" id="real_time">' +
-				'<img class="bg" src="images/real-time-bg.png" alt="">' +
-				'<div class="time-text"><span id="alarm_value" class="icon iconfont time-btn" onclick="setupTimeOpen($(this))">' + alarmTime + '</span></div>' +
-			'</div>' +
-			'<div class="real-time-title">当前时间</div>' +
-			'<hr class="real-time-hr">' +
-			'<ul class="week-nav clearfix">' +
-				'<li><a>周一</a></li>' +
-				'<li class="active"><a>周二</a></li>' +
-				'<li class="active"><a>周三</a></li>' +
-				'<li><a>周四</a></li>' +
-				'<li><a>周五</a></li>' +
-				'<li><a>周六</a></li>' +
-				'<li><a>周日</a></li>' +
-			'</ul>' +
-			'<button class="btn btn-time" onclick="saveAlarm($(this))">修改闹钟</button>' +
-		'</div>' ;
-
-	$('.time-alarm').css('display', 'none');
-	$('.alarm-list').animate({right:'71%'});
-	$(addAlarmHtml).appendTo(object.parents('.box-shell'));
-	setTimeout(function(){$('.time-alarm-modify').fadeIn();},400);
-
-	Active.weekActive($('.week-nav li'));//week-nav点击高亮
-}
-//保存已修改闹钟
-function saveAlarm(object) {
-	$('.alarm-list').animate({right:'0'});
-	$('.time-alarm-modify').remove();
-	setTimeout(function(){$('.time-alarm').fadeIn();},400);
-
-	Active.weekActive($('.week-nav li'));//week-nav点击高亮
-}
-//打开时间设置窗口
-function setupTimeOpen(object){
-	var timeArrays = object.html().split(':');
-	var hourValue = timeArrays[0];
-	var minuteValue = timeArrays[1];
-
-	var a = new setupTimeWindow();
-	a.openWindow(24,60,hourValue,minuteValue);//打开时间设置窗口
-
-	if ($('.time-alarm').css('display') == 'block') {
-		$('.time-alarm').animate({width:'69%'});
-	}else if ($('.time-alarm-modify').css('display') == 'block') {
-		$('.time-alarm-modify').animate({'margin-right':'31%','width':'69%'});
-	}
-	$('.alarm-list').fadeOut();
-};
-//关闭时间设置窗口
-function setupTimeClose(){
-	var a = new setupTimeWindow();
-	var b = $('.time-btn');
-	a.closeWindow();//关闭时间设置窗口
-
-	if ($('.time-alarm').css('display') == 'block') {
-		if ($('.alarm-list li').length == 0) {
-			$('.time-alarm').animate({width:'100%'});
-		}else {
-			$('.time-alarm').animate({width:'72%'});
-			$('.alarm-list').fadeIn();
-		}
-	}else if ($('.time-alarm-modify').css('display') == 'block') {
-		$('.time-alarm-modify').animate({'margin-right':'0','width':'70%'});
-		$('.alarm-list').fadeIn();
-	}
-};
-//保存时间设置窗口
-function setupTimeSave(){
-	var a = new setupTimeWindow();
-
-	if ($('.time-alarm').css('display') == 'block') {
-		$('.time-alarm .time-btn').html(a.save());//保存时间设置窗口
-		if ($('.alarm-list li').length == 0) {
-			$('.time-alarm').animate({width:'100%'});
-		}else {
-			$('.time-alarm').animate({width:'72%'});
-			$('.alarm-list').fadeIn();
-		}
-	}else if ($('.time-alarm-modify').css('display') == 'block') {
-		$('.time-alarm-modify .time-btn').html(a.save());//保存时间设置窗口
-		$('.time-alarm-modify').animate({'margin-right':'0','width':'70%'});
-		$('.alarm-list').fadeIn();
-	}
-
-	var setTime = $('#real_time .icon:eq(0)').html().split(':');
-	var angle = (parseInt(setTime[0]*60) + parseInt(setTime[1]))/720*360
-	$('#real_time .bg').css('transform','rotate('+ angle +'deg)');
-};
-//判断是否显示列表
-function alarmList() {
-	if ($('.alarm-list li').length == 0) {
-		$('.time-alarm').animate({width:'100%'});
-		$('.alarm-list').fadeOut();
-	}else {
-		$('.time-alarm').animate({width:'72%'});
-		$('.alarm-list').fadeIn();
 	}
 }
 //设置时间窗口
@@ -411,9 +425,9 @@ var setupTimeWindow = function(){
 
 		var windowHtml = '<div id="setup-time-window">' +
 			'<div class="setup-header">' +
-				'<div class="left-btn" onclick="setupTimeClose()"><i class="iconfont">&#xe610;</i></div>' +
+				'<div class="left-btn" onclick="setupTime.close()"><i class="iconfont">&#xe610;</i></div>' +
 				'<div class="title">设置时间</div>' +
-				'<div class="right-btn" onclick="setupTimeSave()"><i class="iconfont">&#xe60f;</i></div>' +
+				'<div class="right-btn" onclick="setupTime.save()"><i class="iconfont">&#xe60f;</i></div>' +
 			'</div>' +
 			'<div class="setup-body">' +
 				'<div class="control-setup-time">' +
