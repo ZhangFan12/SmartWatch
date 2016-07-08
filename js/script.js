@@ -406,7 +406,7 @@ var setupTime = {
 		$('#real_time .bg').css('transform','rotate('+ angle +'deg)');
 	}
 }
-//设置时间窗口
+//设置时间窗口控件
 var setupTimeWindow = function(){
 	var liHeight;
 	//打开窗口
